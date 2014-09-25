@@ -48,7 +48,7 @@ import com.helger.commons.string.StringHelper;
  */
 public class AS2PeppolReceiveServlet extends HttpServlet
 {
-  public static final String SERVLET_INIT_PARAM_AS2_SERVER_CONFIG_FILENAME = "as2-server-config-filename";
+  public static final String SERVLET_INIT_PARAM_AS2_SERVLET_CONFIG_FILENAME = "as2-servlet-config-filename";
   private static final Logger s_aLogger = LoggerFactory.getLogger (AS2PeppolReceiveServlet.class);
 
   private AS2ServletSession m_aSession;
@@ -57,7 +57,7 @@ public class AS2PeppolReceiveServlet extends HttpServlet
   /**
    * Get the AS2 configuration file to be used. By default this method reads it
    * from the Servlet init-param called
-   * {@link #SERVLET_INIT_PARAM_AS2_SERVER_CONFIG_FILENAME}. You may override
+   * {@link #SERVLET_INIT_PARAM_AS2_SERVLET_CONFIG_FILENAME}. You may override
    * this method to use another way of retrieving the configuration file. <br>
    * Note: it must be a {@link File} because the configuration file allows for
    * "%home%" parameter substitution which uses the directory of the
@@ -69,10 +69,10 @@ public class AS2PeppolReceiveServlet extends HttpServlet
   @Nonnull
   protected File getConfigurationFile () throws ServletException
   {
-    final String sConfigurationFilename = getServletConfig ().getInitParameter (SERVLET_INIT_PARAM_AS2_SERVER_CONFIG_FILENAME);
+    final String sConfigurationFilename = getServletConfig ().getInitParameter (SERVLET_INIT_PARAM_AS2_SERVLET_CONFIG_FILENAME);
     if (StringHelper.hasNoText (sConfigurationFilename))
       throw new ServletException ("Init-Parameter '" +
-                                  SERVLET_INIT_PARAM_AS2_SERVER_CONFIG_FILENAME +
+                                  SERVLET_INIT_PARAM_AS2_SERVLET_CONFIG_FILENAME +
                                   "' is missing or empty!");
 
     try
