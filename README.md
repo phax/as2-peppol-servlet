@@ -3,17 +3,31 @@
 A standalone servlet that takes AS2 requests with OpenPEPPOL StandardBusinessDocuments and handles them via SPI. This is not a self-contained package, but a good starting point for handling PEPPOL AS2 messages. 
 
 ##Dependencies
-This package depends on [ph-commons](https://github.com/phax/ph-commons), [ph-sbdh](https://github.com/phax/ph-sbdh) and [as2-lib](https://github.com/phax/as2-lib).
+This package depends on [ph-commons](https://github.com/phax/ph-commons), [ph-sbdh](https://github.com/phax/ph-sbdh) and [as2-lib](https://github.com/phax/as2-lib). This transitively includes Bouncy Castle (1.51) and javax.mail (1.5.2) among other libraries.
 
-##Usage
-To use this project you have to do the following:
-  1. Add this project as a dependency to your project
-  2. Create an AS2 configuration file and store it in a folder that is writable to your project. The details of the configuration files are described below. 
-  3. Modify your `WEB-INF/web.xml` file so that it references the `AS2PeppolReceiveServlet`.
-  
+#Usage
+To use this project you have to do the following - all described in more detail below:
+  1. Add this project as a dependency to your project - e.g. via Maven
+  2. Modify your `WEB-INF/web.xml` file so that it references the `AS2PeppolReceiveServlet`.
+  3. Create an AS2 configuration file and store it in a folder that is fully writable to your project. The details of the configuration files are described below.
+  4. Create a key store file (e.g.) called `server-certs.p12` located in the same folder as the configuration file. It must contain your PEPPOL AP certificate and alias must be the CN-value of your certificate's subject (e.g. `APP_1000000001`). The path and the password of the keystore must be set in the AS2 configuration file. 
+
+##Add project via Maven
+Add the following to your pom.xml to use this artifact:
+
+**Note: no release is yet on Maven central!**
+
+```xml
+<dependency>
+  <groupId>com.helger</groupId>
+  <artifactId>as2-peppol-servlet</artifactId>
+  <version>1.0.0-SNAPSHOT</version>
+</dependency>
+```
+
+##WEB-INF/web.xml configuration  
 Example `WEB-INF/web.xml` configuration:
 ```xml
-...
   <servlet>
     <servlet-name>AS2PeppolReceiveServlet</servlet-name>
     <servlet-class>com.helger.as2servlet.AS2PeppolReceiveServlet</servlet-class>
@@ -26,13 +40,15 @@ Example `WEB-INF/web.xml` configuration:
     <servlet-name>AS2PeppolReceiveServlet</servlet-name>
     <url-pattern>/as2/*</url-pattern>
   </servlet-mapping>
-...  
 ```
 As you can see, a configuration file called `as2-server-data/as2-server-config.xml` is referenced as an `init-param` of the servlet. The name of the `init-param` must be `as2-servlet-config-filename`. Please make sure to insert the correct absolute path to the configuration file inside the `param-value` element.
   
-#Configuration file
+##AS2 Configuration file
 
-A special XML configuration file must be used to configure the AS2 handling. 
+A special XML configuration file must be used to configure the AS2 handling. It contains:
+  * a reference to the keystore to be used (in element `certificates`)
+  * a reference to a partnership factory (storing the exchange combinations) (in element `partnerships`)
+  * a list of modules that are executed when a message is received (in elements `module`)
 
 Complete example configuration file:
  
@@ -64,6 +80,7 @@ Complete example configuration file:
             protocol="as2"
             tempdir="%home%/temp"/>
     <!-- [required] The main receiver module that performs the message parsing.
+         This module also sends synchronous MDNs back.
          Note: the port attribute is required but can be ignored in our case!
      -->            
     <module classname="com.helger.as2servlet.util.AS2ServletReceiverModule"      
