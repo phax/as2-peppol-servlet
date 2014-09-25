@@ -10,7 +10,8 @@ To use this project you have to do the following - all described in more detail 
   1. Add this project as a dependency to your project - e.g. via Maven
   2. Modify your `WEB-INF/web.xml` file so that it references the `AS2PeppolReceiveServlet`.
   3. Create an AS2 configuration file and store it in a folder that is fully writable to your project. The details of the configuration files are described below.
-  4. Create a key store file (e.g.) called `server-certs.p12` located in the same folder as the configuration file. It must contain your PEPPOL AP certificate and alias must be the CN-value of your certificate's subject (e.g. `APP_1000000001`). The path and the password of the keystore must be set in the AS2 configuration file. 
+  4. Create a key store file (e.g.) called `server-certs.p12` located in the same folder as the configuration file. The keystore type must be `PKCS12`. It must contain your PEPPOL AP certificate and the alias of the only entry must be the CN-value of your certificate's subject (e.g. `APP_1000000001`). The path and the password of the keystore must be set in the AS2 configuration file.
+  5. Inside your project create an SPI implementation of the `com.helger.as2servlet.sbd.IAS2IncomingSBDHandlerSPI` interface to handling incoming SBD documents.
 
 ##Add project via Maven
 Add the following to your pom.xml to use this artifact:
@@ -42,6 +43,8 @@ Example `WEB-INF/web.xml` configuration:
   </servlet-mapping>
 ```
 As you can see, a configuration file called `as2-server-data/as2-server-config.xml` is referenced as an `init-param` of the servlet. The name of the `init-param` must be `as2-servlet-config-filename`. Please make sure to insert the correct absolute path to the configuration file inside the `param-value` element.
+
+In this example the servlet is mapped to the path `/as2` meaning that messages must be targeted to this URL (e.g. `https://myserver/as2`). 
   
 ##AS2 Configuration file
 
@@ -49,6 +52,8 @@ A special XML configuration file must be used to configure the AS2 handling. It 
   * a reference to the keystore to be used (in element `certificates`)
   * a reference to a partnership factory (storing the exchange combinations) (in element `partnerships`)
   * a list of modules that are executed when a message is received (in elements `module`)
+
+Within a configuration file, the macro `%home%` is replaced with the parent directory of the configuration file. This replacement happens only when a value starts with `%home%`.
 
 Complete example configuration file:
  
@@ -92,4 +97,9 @@ Complete example configuration file:
   </processor>
 </openas2>
 ```
-  
+
+##SPI implementation
+
+SPI stands for "Service provider interface" and is a Java standard feature to enable loose but typed coupling. [Read more on SPI](http://docs.oracle.com/javase/tutorial/ext/basics/spi.html)
+
+A [dummy SPI implementation](https://github.com/phax/as2-peppol-servlet/blob/master/src/test/java/com/helger/as2servlet/sbd/MockIncomingSBDHandler.java) is contained in the test code of this project. Additionally you need to create a file `META-INF/services/com.helger.as2servlet.sbd.IAS2IncomingSBDHandlerSPI` (in the `src/main/resources/` folder when using Maven) which contains a single line referencing the implementation class. An [example file](https://github.com/phax/as2-peppol-servlet/blob/master/src/test/resources/META-INF/services/com.helger.as2servlet.sbd.IAS2IncomingSBDHandlerSPI) is located in the test resources of this project.
