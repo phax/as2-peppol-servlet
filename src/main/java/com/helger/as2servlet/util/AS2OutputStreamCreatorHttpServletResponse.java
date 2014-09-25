@@ -30,11 +30,12 @@ import com.helger.as2lib.util.IAS2HttpResponseHandler;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.io.streams.NonBlockingByteArrayOutputStream;
 import com.helger.commons.io.streams.StreamUtils;
+import com.helger.commons.string.StringHelper;
 
 /**
  * An implementation of {@link IAS2HttpResponseHandler} that works upon a
  * {@link HttpServletResponse}.
- * 
+ *
  * @author Philip Helger
  */
 public final class AS2OutputStreamCreatorHttpServletResponse implements IAS2HttpResponseHandler
@@ -58,7 +59,12 @@ public final class AS2OutputStreamCreatorHttpServletResponse implements IAS2Http
     while (aHeaderEnum.hasMoreElements ())
     {
       final Header aHeader = (Header) aHeaderEnum.nextElement ();
-      m_aHttpResponse.addHeader (aHeader.getName (), aHeader.getValue ());
+      // HTTPResponse cannot deal with newlines in header values and this
+      // happens e.g. for Content-Type!
+      m_aHttpResponse.addHeader (aHeader.getName (),
+                                 new String (StringHelper.replaceMultiple (aHeader.getValue (),
+                                                                           new char [] { '\r', '\n', '\t' },
+                                                                           ' ')));
     }
 
     // Write response body
