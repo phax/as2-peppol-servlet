@@ -21,6 +21,7 @@ import java.io.IOException;
 import java.util.Enumeration;
 
 import javax.annotation.Nonnull;
+import javax.annotation.OverridingMethodsMustInvokeSuper;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -129,9 +130,39 @@ public class AS2PeppolReceiveServlet extends HttpServlet
     return m_aReceiver;
   }
 
+  /**
+   * Main handling method
+   *
+   * @param aHttpRequest
+   *        HTTP request
+   * @param aHttpResponse
+   *        HTTP response
+   * @param aMsgData
+   *        Message content
+   * @param aMsg
+   *        AS2 message object
+   * @param aResponseHandler
+   *        The response handler for sending back the MDN
+   * @throws ServletException
+   *         In case of an error
+   */
+  @OverrideOnDemand
+  @OverridingMethodsMustInvokeSuper
+  protected void handeIncomingMessage (@Nonnull final HttpServletRequest aHttpRequest,
+                                       @Nonnull final HttpServletResponse aHttpResponse,
+                                       @Nonnull final byte [] aMsgData,
+                                       @Nonnull final AS2Message aMsg,
+                                       @Nonnull final AS2OutputStreamCreatorHttpServletResponse aResponseHandler) throws ServletException
+  {
+    // Handle the incoming message, and return the MDN if necessary
+    // This call internally invokes the AS2ServletSBDModule
+    final String sClientInfo = aHttpRequest.getRemoteAddr () + ":" + aHttpRequest.getRemotePort ();
+    getReceiverModule ().createHandler ().handleIncomingMessage (sClientInfo, aMsgData, aMsg, aResponseHandler);
+  }
+
   @Override
-  protected void doPost (final HttpServletRequest aHttpRequest, final HttpServletResponse aHttpResponse) throws ServletException,
-                                                                                                        IOException
+  protected void doPost (@Nonnull final HttpServletRequest aHttpRequest,
+                         @Nonnull final HttpServletResponse aHttpResponse) throws ServletException, IOException
   {
     // Create empty message
     final AS2Message aMsg = new AS2Message ();
@@ -164,9 +195,7 @@ public class AS2PeppolReceiveServlet extends HttpServlet
     // Read the S/MIME content
     final byte [] aMsgData = HTTPUtil.readHttpPayload (aHttpRequest.getInputStream (), aResponseHandler, aMsg);
 
-    // Handle the incoming message, and return the MDN if necessary
-    // This call internally invokes the AS2ServletSBDModule
-    final String sClientInfo = aHttpRequest.getRemoteAddr () + ":" + aHttpRequest.getRemotePort ();
-    getReceiverModule ().createHandler ().handleIncomingMessage (sClientInfo, aMsgData, aMsg, aResponseHandler);
+    // Call main handling method
+    handeIncomingMessage (aHttpRequest, aHttpResponse, aMsgData, aMsg, aResponseHandler);
   }
 }
