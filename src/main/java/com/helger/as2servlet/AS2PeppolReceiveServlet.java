@@ -34,7 +34,7 @@ import com.helger.as2lib.exception.OpenAS2Exception;
 import com.helger.as2lib.message.AS2Message;
 import com.helger.as2lib.message.CNetAttribute;
 import com.helger.as2lib.processor.receiver.AS2ReceiverModule;
-import com.helger.as2lib.util.HTTPUtil;
+import com.helger.as2lib.util.http.HTTPUtil;
 import com.helger.as2servlet.util.AS2OutputStreamCreatorHttpServletResponse;
 import com.helger.as2servlet.util.AS2ServletReceiverModule;
 import com.helger.as2servlet.util.AS2ServletSession;

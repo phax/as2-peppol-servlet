@@ -26,7 +26,7 @@ import javax.mail.Header;
 import javax.mail.internet.InternetHeaders;
 import javax.servlet.http.HttpServletResponse;
 
-import com.helger.as2lib.util.IAS2HttpResponseHandler;
+import com.helger.as2lib.util.http.IAS2HttpResponseHandler;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.io.streams.NonBlockingByteArrayOutputStream;
 import com.helger.commons.io.streams.StreamUtils;
