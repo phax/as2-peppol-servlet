@@ -16,13 +16,11 @@ To use this project you have to do the following - all described in more detail 
 ##Add project via Maven
 Add the following to your pom.xml to use this artifact:
 
-**Note: no release is yet on Maven central!**
-
 ```xml
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>as2-peppol-servlet</artifactId>
-  <version>1.0.0-SNAPSHOT</version>
+  <version>1.0.0</version>
 </dependency>
 ```
 
