@@ -1,9 +1,10 @@
 #as2-peppol-servlet
 
-A standalone servlet that takes AS2 requests with OpenPEPPOL StandardBusinessDocuments and handles them via SPI. This is not a self-contained package, but a good starting point for handling PEPPOL AS2 messages. 
+A standalone servlet that takes AS2 requests with OpenPEPPOL StandardBusinessDocuments and handles them via SPI. This is not a self-contained package, but a good starting point for handling PEPPOL AS2 messages.
 
-##Dependencies
 This package depends on [ph-commons](https://github.com/phax/ph-commons), [ph-sbdh](https://github.com/phax/ph-sbdh) and [as2-lib](https://github.com/phax/as2-lib). This transitively includes Bouncy Castle (1.51) and javax.mail (1.5.2) among other libraries.
+
+*as2-peppol-servlet* handles incoming AS2 messages, and parses them as OASIS Standard Business Documents (SBD). It does not contain extraction of the SBD content or even handling of the UBL content since the purpose of this project is reusability. For validating the SBD against PEPPOL rules, the project [peppol-sbdh](https://github.com/phax/peppol-sbdh) is available and for handling UBL 2.0 or 2.1 files you may have a look at [ph-ubl](https://github.com/phax/ph-ubl).
 
 #Usage
 To use this project you have to do the following - all described in more detail below:
@@ -101,6 +102,11 @@ Complete example configuration file:
 SPI stands for "Service provider interface" and is a Java standard feature to enable loose but typed coupling. [Read more on SPI](http://docs.oracle.com/javase/tutorial/ext/basics/spi.html)
 
 A [dummy SPI implementation](https://github.com/phax/as2-peppol-servlet/blob/master/src/test/java/com/helger/as2servlet/sbd/MockIncomingSBDHandler.java) is contained in the test code of this project. Additionally you need to create a file `META-INF/services/com.helger.as2servlet.sbd.IAS2IncomingSBDHandlerSPI` (in the `src/main/resources/` folder when using Maven) which contains a single line referencing the implementation class. An [example file](https://github.com/phax/as2-peppol-servlet/blob/master/src/test/resources/META-INF/services/com.helger.as2servlet.sbd.IAS2IncomingSBDHandlerSPI) is located in the test resources of this project.
+
+# Known issues
+
+  * PEPPOL AS2 specs requires that duplicate incoming message IDs are handled specially, by ignoring mutliple transmissions of the same message ID
+  * The certificate check of the sender's certificate must be improved 
 
 ---
 
