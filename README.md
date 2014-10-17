@@ -1,6 +1,6 @@
 #as2-peppol-servlet
 
-A standalone servlet that takes AS2 requests with OpenPEPPOL StandardBusinessDocuments and handles them via SPI. This is not a self-contained package, but a good starting point for handling PEPPOL AS2 messages.
+A stand alone servlet that takes AS2 requests with OpenPEPPOL StandardBusinessDocuments and handles them via SPI. This is not a self-contained package, but a good starting point for handling PEPPOL AS2 messages.
 
 This package depends on [ph-commons](https://github.com/phax/ph-commons), [ph-sbdh](https://github.com/phax/ph-sbdh) and [as2-lib](https://github.com/phax/as2-lib). This transitively includes Bouncy Castle (1.51) and javax.mail (1.5.2) among other libraries.
 
