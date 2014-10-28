@@ -46,7 +46,7 @@ public final class AS2ServletPartnershipFactory extends SelfFillingXMLPartnershi
   @Override
   protected void markAsChanged () throws OpenAS2Exception
   {
-    // Store everytime something changed
+    // Store every time something changed
     storePartnership ();
   }
 }
