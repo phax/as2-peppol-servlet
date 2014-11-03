@@ -114,19 +114,31 @@ public class AS2PeppolReceiveServlet extends HttpServlet
                     "'");
   }
 
+  /**
+   * @return The AS2 session that was created in {@link #init()}. Never
+   *         <code>null</code>.
+   * @throws IllegalStateException
+   *         In case initialization failed
+   */
   @Nonnull
   protected AS2ServletSession getSession ()
   {
     if (m_aSession == null)
-      throw new IllegalStateException ("This servlet was not initialized properly!");
+      throw new IllegalStateException ("This servlet was not initialized properly! No AS2 session is present.");
     return m_aSession;
   }
 
+  /**
+   * @return The AS2 receiver module that was created in {@link #init()}. Never
+   *         <code>null</code>.
+   * @throws IllegalStateException
+   *         In case initialization failed
+   */
   @Nonnull
   protected AS2ReceiverModule getReceiverModule ()
   {
     if (m_aReceiver == null)
-      throw new IllegalStateException ("This servlet was not initialized properly!");
+      throw new IllegalStateException ("This servlet was not initialized properly! No receiver is present.");
     return m_aReceiver;
   }
 
@@ -155,8 +167,9 @@ public class AS2PeppolReceiveServlet extends HttpServlet
                                        @Nonnull final AS2OutputStreamCreatorHttpServletResponse aResponseHandler) throws ServletException
   {
     // Handle the incoming message, and return the MDN if necessary
-    // This call internally invokes the AS2ServletSBDModule
     final String sClientInfo = aHttpRequest.getRemoteAddr () + ":" + aHttpRequest.getRemotePort ();
+
+    // This call internally invokes the AS2ServletSBDModule
     getReceiverModule ().createHandler ().handleIncomingMessage (sClientInfo, aMsgData, aMsg, aResponseHandler);
   }
 
@@ -166,17 +179,17 @@ public class AS2PeppolReceiveServlet extends HttpServlet
   {
     // Create empty message
     final AS2Message aMsg = new AS2Message ();
-    aMsg.setAttribute (CNetAttribute.MA_SOURCE_IP, aHttpRequest.getLocalAddr ());
-    aMsg.setAttribute (CNetAttribute.MA_SOURCE_PORT, Integer.toString (aHttpRequest.getLocalPort ()));
-    aMsg.setAttribute (CNetAttribute.MA_DESTINATION_IP, aHttpRequest.getRemoteAddr ());
-    aMsg.setAttribute (CNetAttribute.MA_DESTINATION_PORT, Integer.toString (aHttpRequest.getRemotePort ()));
+    aMsg.setAttribute (CNetAttribute.MA_SOURCE_IP, aHttpRequest.getRemoteAddr ());
+    aMsg.setAttribute (CNetAttribute.MA_SOURCE_PORT, Integer.toString (aHttpRequest.getRemotePort ()));
+    aMsg.setAttribute (CNetAttribute.MA_DESTINATION_IP, aHttpRequest.getLocalAddr ());
+    aMsg.setAttribute (CNetAttribute.MA_DESTINATION_PORT, Integer.toString (aHttpRequest.getLocalPort ()));
 
     // Request type (e.g. "POST")
     aMsg.setAttribute (HTTPUtil.MA_HTTP_REQ_TYPE, aHttpRequest.getMethod ());
     // Request URL (e.g. "/as2")
     aMsg.setAttribute (HTTPUtil.MA_HTTP_REQ_URL, aHttpRequest.getRequestURI ());
 
-    // Add all request headers to the message
+    // Add all request headers to the AS2 message
     final Enumeration <?> eHeaders = aHttpRequest.getHeaderNames ();
     while (eHeaders.hasMoreElements ())
     {
