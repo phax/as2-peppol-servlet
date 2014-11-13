@@ -8,6 +8,8 @@ This package depends on **[ph-commons](https://github.com/phax/ph-commons)**, **
 
 *as2-peppol-servlet* handles incoming AS2 messages, and parses them as OASIS Standard Business Documents (SBD). It does not contain extraction of the SBD content or even handling of the UBL content since the purpose of this project is reusability. For validating the SBD against PEPPOL rules, the project **[peppol-sbdh](https://github.com/phax/peppol-sbdh)** is available and for handling UBL 2.0 or 2.1 files you may have a look at my **[ph-ubl](https://github.com/phax/ph-ubl)**.
 
+This project is licensed under the Apache 2 License.
+
 #Usage
 To use this project you have to do the following - all described in more detail below:
   1. Add this project as a dependency to your project - e.g. via Maven
