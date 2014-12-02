@@ -80,6 +80,9 @@
             <Export-Package>
               com.helger.as2servlet.*
             </Export-Package>
+            <Import-Package>
+              !javax.annotation.*,*
+            </Import-Package>
           </instructions>
         </configuration>
       </plugin>
