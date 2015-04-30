@@ -49,12 +49,12 @@
     <dependency>
       <groupId>com.helger</groupId>
       <artifactId>ph-commons</artifactId>
-      <version>5.7.0</version>
+      <version>5.7.1</version>
     </dependency>  
     <dependency>
       <groupId>com.helger</groupId>
       <artifactId>as2-lib</artifactId>
-      <version>1.0.8-SNAPSHOT</version>
+      <version>1.0.8</version>
     </dependency>
     <dependency>
       <groupId>com.helger</groupId>
