@@ -20,7 +20,7 @@ import javax.annotation.Nonnull;
 
 import org.unece.cefact.namespaces.sbdh.StandardBusinessDocument;
 
-import com.helger.commons.annotations.IsSPIInterface;
+import com.helger.commons.annotation.IsSPIInterface;
 
 /**
  * This is the SPI interface that must be implemented to handle incoming SBD

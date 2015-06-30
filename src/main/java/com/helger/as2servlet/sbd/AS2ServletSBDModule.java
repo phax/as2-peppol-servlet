@@ -37,7 +37,7 @@ import com.helger.as2lib.message.IMessage;
 import com.helger.as2lib.processor.module.AbstractProcessorModule;
 import com.helger.as2lib.processor.storage.IProcessorStorageModule;
 import com.helger.as2servlet.AS2PeppolServletConfiguration;
-import com.helger.commons.lang.ServiceLoaderUtils;
+import com.helger.commons.lang.ServiceLoaderHelper;
 import com.helger.commons.string.StringHelper;
 import com.helger.peppol.identifier.doctype.IPeppolReadonlyDocumentTypeIdentifier;
 import com.helger.peppol.identifier.participant.IPeppolReadonlyParticipantIdentifier;
@@ -62,12 +62,17 @@ public final class AS2ServletSBDModule extends AbstractProcessorModule
 
   public AS2ServletSBDModule ()
   {
-    m_aHandlers = ServiceLoaderUtils.getAllSPIImplementations (IAS2IncomingSBDHandlerSPI.class);
+    m_aHandlers = ServiceLoaderHelper.getAllSPIImplementations (IAS2IncomingSBDHandlerSPI.class);
     if (m_aHandlers.isEmpty ())
     {
       s_aLogger.warn ("No SPI handler of type " +
                       IAS2IncomingSBDHandlerSPI.class.getName () +
                       " for incoming SBD documents is registered. Therefore incoming documents will NOT be handled and maybe discarded if no other processors are active!");
+    }
+    else
+    {
+      if (s_aLogger.isDebugEnabled ())
+        s_aLogger.debug ("Loaded " + m_aHandlers.size () + " IAS2IncomingSBDHandlerSPI implementations");
     }
   }
 
@@ -129,7 +134,8 @@ public final class AS2ServletSBDModule extends AbstractProcessorModule
     {
       throw new OpenAS2Exception (sMessageID +
                                   " Failed to retrieve endpoint of recipient " +
-                                  aRecipientID.getURIEncoded (), t);
+                                  aRecipientID.getURIEncoded (),
+                                  t);
     }
   }
 
@@ -180,7 +186,8 @@ public final class AS2ServletSBDModule extends AbstractProcessorModule
       throw new OpenAS2Exception (sMessageID +
                                   " Internal error: Failed to convert looked up endpoint certificate string '" +
                                   sRecipientCertString +
-                                  "' to an X.509 certificate!", t);
+                                  "' to an X.509 certificate!",
+                                  t);
     }
 
     if (aRecipientCert == null)

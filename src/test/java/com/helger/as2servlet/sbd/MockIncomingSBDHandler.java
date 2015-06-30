@@ -20,8 +20,7 @@ import javax.annotation.Nonnull;
 
 import org.unece.cefact.namespaces.sbdh.StandardBusinessDocument;
 
-import com.helger.as2servlet.sbd.IAS2IncomingSBDHandlerSPI;
-import com.helger.commons.annotations.IsSPIImplementation;
+import com.helger.commons.annotation.IsSPIImplementation;
 
 @IsSPIImplementation
 public class MockIncomingSBDHandler implements IAS2IncomingSBDHandlerSPI

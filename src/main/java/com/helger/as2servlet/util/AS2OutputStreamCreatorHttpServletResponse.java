@@ -28,8 +28,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.helger.as2lib.util.http.IAS2HttpResponseHandler;
 import com.helger.commons.ValueEnforcer;
-import com.helger.commons.io.streams.NonBlockingByteArrayOutputStream;
-import com.helger.commons.io.streams.StreamUtils;
+import com.helger.commons.io.stream.NonBlockingByteArrayOutputStream;
+import com.helger.commons.io.stream.StreamHelper;
 import com.helger.commons.string.StringHelper;
 
 /**
@@ -68,7 +68,7 @@ public final class AS2OutputStreamCreatorHttpServletResponse implements IAS2Http
     }
 
     // Write response body
-    final OutputStream aOS = StreamUtils.getBuffered (m_aHttpResponse.getOutputStream ());
+    final OutputStream aOS = StreamHelper.getBuffered (m_aHttpResponse.getOutputStream ());
     aData.writeTo (aOS);
 
     // Don't close the OutputStream - just flush it.

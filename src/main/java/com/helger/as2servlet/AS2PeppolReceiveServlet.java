@@ -38,7 +38,7 @@ import com.helger.as2lib.util.http.HTTPUtil;
 import com.helger.as2servlet.util.AS2OutputStreamCreatorHttpServletResponse;
 import com.helger.as2servlet.util.AS2ServletReceiverModule;
 import com.helger.as2servlet.util.AS2ServletSession;
-import com.helger.commons.annotations.OverrideOnDemand;
+import com.helger.commons.annotation.OverrideOnDemand;
 import com.helger.commons.string.StringHelper;
 
 /**

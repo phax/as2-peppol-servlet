@@ -33,7 +33,7 @@ import com.helger.as2lib.processor.module.IProcessorModule;
 import com.helger.as2lib.session.AS2Session;
 import com.helger.as2lib.util.XMLUtil;
 import com.helger.commons.ValueEnforcer;
-import com.helger.commons.io.file.FileUtils;
+import com.helger.commons.io.file.FileHelper;
 import com.helger.commons.microdom.IMicroDocument;
 import com.helger.commons.microdom.IMicroElement;
 import com.helger.commons.microdom.serialize.MicroReader;
@@ -60,7 +60,7 @@ public final class AS2ServletSession extends AS2Session
       throw new OpenAS2Exception ("AS2Session configuration file " + aFile.getAbsolutePath () + " does not exist!");
     m_sBaseDirectory = aFile.getParentFile ().getAbsolutePath ();
     s_aLogger.info ("Loading AS2 configuration file '" + aFile.getAbsolutePath ());
-    _load (FileUtils.getInputStream (aFile));
+    _load (FileHelper.getInputStream (aFile));
   }
 
   @Nonnull
