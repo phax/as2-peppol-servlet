@@ -27,7 +27,6 @@ import javax.annotation.Nullable;
 import org.busdox.servicemetadata.publishing._1.EndpointType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.unece.cefact.namespaces.sbdh.SBDMarshaller;
 import org.unece.cefact.namespaces.sbdh.StandardBusinessDocument;
 
 import com.helger.as2lib.exception.OpenAS2Exception;
@@ -47,6 +46,7 @@ import com.helger.peppol.sbdh.read.DocumentDataReader;
 import com.helger.peppol.smp.ESMPTransportProfile;
 import com.helger.peppol.smpclient.SMPClientReadonly;
 import com.helger.peppol.utils.CertificateUtils;
+import com.helger.sbdh.SBDMarshaller;
 
 /**
  * This processor module triggers the processing of the incoming SBD XML
