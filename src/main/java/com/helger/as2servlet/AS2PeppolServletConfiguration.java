@@ -5,7 +5,7 @@ import java.security.cert.X509Certificate;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
 
-import com.helger.peppol.smpclient.SMPClientReadonly;
+import com.helger.peppol.smpclient.SMPClientReadOnly;
 
 @NotThreadSafe
 public final class AS2PeppolServletConfiguration
@@ -13,7 +13,7 @@ public final class AS2PeppolServletConfiguration
   public static final boolean DEFAULT_RECEIVER_CHECK_ENABLED = false;
 
   private static boolean s_bReceiverCheckEnabled = DEFAULT_RECEIVER_CHECK_ENABLED;
-  private static SMPClientReadonly s_aSMPClient;
+  private static SMPClientReadOnly s_aSMPClient;
   private static String s_sAS2EndpointURL;
   private static X509Certificate s_aAPCertificate;
 
@@ -42,12 +42,12 @@ public final class AS2PeppolServletConfiguration
    *         configured.
    */
   @Nullable
-  public static SMPClientReadonly getSMPClient ()
+  public static SMPClientReadOnly getSMPClient ()
   {
     return s_aSMPClient;
   }
 
-  public static void setSMPClient (@Nullable final SMPClientReadonly aSMPClient)
+  public static void setSMPClient (@Nullable final SMPClientReadOnly aSMPClient)
   {
     s_aSMPClient = aSMPClient;
   }

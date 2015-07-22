@@ -38,14 +38,14 @@ import com.helger.as2lib.processor.storage.IProcessorStorageModule;
 import com.helger.as2servlet.AS2PeppolServletConfiguration;
 import com.helger.commons.lang.ServiceLoaderHelper;
 import com.helger.commons.string.StringHelper;
-import com.helger.peppol.identifier.doctype.IPeppolReadonlyDocumentTypeIdentifier;
-import com.helger.peppol.identifier.participant.IPeppolReadonlyParticipantIdentifier;
-import com.helger.peppol.identifier.process.IPeppolReadonlyProcessIdentifier;
+import com.helger.peppol.identifier.doctype.IPeppolDocumentTypeIdentifier;
+import com.helger.peppol.identifier.participant.IPeppolParticipantIdentifier;
+import com.helger.peppol.identifier.process.IPeppolProcessIdentifier;
 import com.helger.peppol.sbdh.DocumentData;
 import com.helger.peppol.sbdh.read.DocumentDataReader;
 import com.helger.peppol.smp.ESMPTransportProfile;
-import com.helger.peppol.smpclient.SMPClientReadonly;
-import com.helger.peppol.utils.CertificateUtils;
+import com.helger.peppol.smpclient.SMPClientReadOnly;
+import com.helger.peppol.utils.CertificateHelper;
 import com.helger.sbdh.SBDMarshaller;
 
 /**
@@ -97,13 +97,13 @@ public final class AS2ServletSBDModule extends AbstractProcessorModule
    *         In case the endpoint address could not be resolved.
    */
   @Nullable
-  private static EndpointType _getReceiverEndpoint (@Nullable final IPeppolReadonlyParticipantIdentifier aRecipientID,
-                                                    @Nullable final IPeppolReadonlyDocumentTypeIdentifier aDocTypeID,
-                                                    @Nullable final IPeppolReadonlyProcessIdentifier aProcessID,
+  private static EndpointType _getReceiverEndpoint (@Nullable final IPeppolParticipantIdentifier aRecipientID,
+                                                    @Nullable final IPeppolDocumentTypeIdentifier aDocTypeID,
+                                                    @Nullable final IPeppolProcessIdentifier aProcessID,
                                                     @Nonnull final String sMessageID) throws OpenAS2Exception
   {
     // Get configured client
-    final SMPClientReadonly aSMPClient = AS2PeppolServletConfiguration.getSMPClient ();
+    final SMPClientReadOnly aSMPClient = AS2PeppolServletConfiguration.getSMPClient ();
     if (aSMPClient == null)
       throw new OpenAS2Exception (sMessageID + " No SMP client configured!");
 
@@ -150,7 +150,7 @@ public final class AS2ServletSBDModule extends AbstractProcessorModule
     if (s_aLogger.isDebugEnabled ())
       s_aLogger.debug (sMessageID + " Our AP URL is " + sOwnAPUrl);
 
-    final String sRecipientAPUrl = SMPClientReadonly.getEndpointAddress (aRecipientEndpoint);
+    final String sRecipientAPUrl = SMPClientReadOnly.getEndpointAddress (aRecipientEndpoint);
     if (s_aLogger.isDebugEnabled ())
       s_aLogger.debug (sMessageID + " Recipient AP URL is " + sRecipientAPUrl);
 
@@ -179,7 +179,7 @@ public final class AS2ServletSBDModule extends AbstractProcessorModule
     X509Certificate aRecipientCert = null;
     try
     {
-      aRecipientCert = CertificateUtils.convertStringToCertficate (sRecipientCertString);
+      aRecipientCert = CertificateHelper.convertStringToCertficate (sRecipientCertString);
     }
     catch (final CertificateException t)
     {
