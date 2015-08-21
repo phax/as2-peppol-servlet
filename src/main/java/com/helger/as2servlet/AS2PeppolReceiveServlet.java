@@ -32,9 +32,9 @@ import org.slf4j.LoggerFactory;
 
 import com.helger.as2lib.exception.OpenAS2Exception;
 import com.helger.as2lib.message.AS2Message;
-import com.helger.as2lib.message.CNetAttribute;
+import com.helger.as2lib.processor.CNetAttribute;
 import com.helger.as2lib.processor.receiver.AS2ReceiverModule;
-import com.helger.as2lib.util.http.HTTPUtil;
+import com.helger.as2lib.util.http.HTTPHelper;
 import com.helger.as2servlet.util.AS2OutputStreamCreatorHttpServletResponse;
 import com.helger.as2servlet.util.AS2ServletReceiverModule;
 import com.helger.as2servlet.util.AS2ServletSession;
@@ -185,9 +185,9 @@ public class AS2PeppolReceiveServlet extends HttpServlet
     aMsg.setAttribute (CNetAttribute.MA_DESTINATION_PORT, Integer.toString (aHttpRequest.getLocalPort ()));
 
     // Request type (e.g. "POST")
-    aMsg.setAttribute (HTTPUtil.MA_HTTP_REQ_TYPE, aHttpRequest.getMethod ());
+    aMsg.setAttribute (HTTPHelper.MA_HTTP_REQ_TYPE, aHttpRequest.getMethod ());
     // Request URL (e.g. "/as2")
-    aMsg.setAttribute (HTTPUtil.MA_HTTP_REQ_URL, aHttpRequest.getRequestURI ());
+    aMsg.setAttribute (HTTPHelper.MA_HTTP_REQ_URL, aHttpRequest.getRequestURI ());
 
     // Add all request headers to the AS2 message
     final Enumeration <?> eHeaders = aHttpRequest.getHeaderNames ();
@@ -206,7 +206,7 @@ public class AS2PeppolReceiveServlet extends HttpServlet
     final AS2OutputStreamCreatorHttpServletResponse aResponseHandler = new AS2OutputStreamCreatorHttpServletResponse (aHttpResponse);
 
     // Read the S/MIME content
-    final byte [] aMsgData = HTTPUtil.readHttpPayload (aHttpRequest.getInputStream (), aResponseHandler, aMsg);
+    final byte [] aMsgData = HTTPHelper.readHttpPayload (aHttpRequest.getInputStream (), aResponseHandler, aMsg);
 
     // Call main handling method
     handeIncomingMessage (aHttpRequest, aHttpResponse, aMsgData, aMsg, aResponseHandler);
