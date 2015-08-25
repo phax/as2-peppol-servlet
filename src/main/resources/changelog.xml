@@ -18,6 +18,12 @@
 
 -->
 <changelog xmlns="http://www.helger.com/xsd/changelog/1.0" version="1.0" component="as2-peppol-servlet">
+  <release date="2015-08-25" version="2.0.0" />
+  <entry date="2015-07-02" category="tech" action="update">
+    <change>
+      <text locale="en">Updated to ph-commons 6.0.0</text>
+    </change>
+  </entry>
   <release date="2015-03-12" version="1.0.1" />
   <release date="2014-09-29" version="1.0.0" />
 </changelog>

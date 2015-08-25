@@ -4,11 +4,14 @@ A stand alone servlet that takes AS2 requests with OpenPEPPOL StandardBusinessDo
 
 An example application that uses *as2-peppol-servlet* for receiving PEPPOL AS2 messages is my **[as2-peppol-server](https://github.com/phax/as2-peppol-server)** project. It may serve as a practical starting point.
 
-This package depends on **[ph-commons](https://github.com/phax/ph-commons)**, **[ph-sbdh](https://github.com/phax/ph-sbdh)** and **[as2-lib](https://github.com/phax/as2-lib)**. This transitively includes Bouncy Castle (1.51) and javax.mail (1.5.2) among other libraries.
+This package depends on **[ph-commons](https://github.com/phax/ph-commons)**, **[ph-sbdh](https://github.com/phax/ph-sbdh)** and **[as2-lib](https://github.com/phax/as2-lib)**. This transitively includes Bouncy Castle (1.52) and javax.mail (1.5.4) among other libraries.
 
 *as2-peppol-servlet* handles incoming AS2 messages, and parses them as OASIS Standard Business Documents (SBD). It does not contain extraction of the SBD content or even handling of the UBL content since the purpose of this project is reusability. For validating the SBD against PEPPOL rules, the project **[peppol-sbdh](https://github.com/phax/peppol-sbdh)** is available and for handling UBL 2.0 or 2.1 files you may have a look at my **[ph-ubl](https://github.com/phax/ph-ubl)**.
 
 This project is licensed under the Apache 2 License.
+
+Versions <= 1.0.1 are compatible with ph-commons < 6.0.
+Versions >= 2.0.0 are compatible with ph-commons >= 6.0.
 
 #Usage
 To use this project you have to do the following - all described in more detail below:
@@ -25,7 +28,7 @@ Add the following to your pom.xml to use this artifact:
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>as2-peppol-servlet</artifactId>
-  <version>1.0.0</version>
+  <version>2.0.0</version>
 </dependency>
 ```
 
@@ -109,7 +112,7 @@ A [dummy SPI implementation](https://github.com/phax/as2-peppol-servlet/blob/mas
 
 # Known issues
 
-  * PEPPOL AS2 specs requires that duplicate incoming message IDs are handled specially, by ignoring mutliple transmissions of the same message ID
+  * PEPPOL AS2 specs requires that duplicate incoming message IDs are handled specially, by ignoring multiple transmissions of the same message ID
   * The certificate check of the sender's certificate must be improved 
 
 ---
