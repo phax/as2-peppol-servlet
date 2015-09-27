@@ -19,9 +19,8 @@ package com.helger.as2servlet.util;
 import javax.annotation.Nonnull;
 
 import com.helger.as2lib.exception.OpenAS2Exception;
-import com.helger.as2lib.partner.CPartnershipIDs;
 import com.helger.as2lib.partner.Partnership;
-import com.helger.as2lib.partner.SelfFillingXMLPartnershipFactory;
+import com.helger.as2lib.partner.xml.SelfFillingXMLPartnershipFactory;
 
 /**
  * A specialized {@link SelfFillingXMLPartnershipFactory} that automatically
@@ -31,6 +30,7 @@ import com.helger.as2lib.partner.SelfFillingXMLPartnershipFactory;
  */
 public final class AS2ServletPartnershipFactory extends SelfFillingXMLPartnershipFactory
 {
+  @SuppressWarnings ("deprecation")
   @Override
   protected void onBeforeAddPartnership (@Nonnull final Partnership aPartnership) throws OpenAS2Exception
   {
@@ -38,9 +38,7 @@ public final class AS2ServletPartnershipFactory extends SelfFillingXMLPartnershi
 
     // Ensure a nice name
     if (Partnership.DEFAULT_NAME.equals (aPartnership.getName ()))
-      aPartnership.setName (aPartnership.getSenderID (CPartnershipIDs.PID_AS2) +
-                            "-" +
-                            aPartnership.getReceiverID (CPartnershipIDs.PID_AS2));
+      aPartnership.setName (aPartnership.getSenderAS2ID () + "-" + aPartnership.getReceiverAS2ID ());
   }
 
   @Override
