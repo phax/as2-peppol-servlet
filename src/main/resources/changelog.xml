@@ -18,6 +18,12 @@
 
 -->
 <changelog xmlns="http://www.helger.com/xsd/changelog/1.0" version="1.0" component="as2-peppol-servlet">
+  <release date="2015-10-08" version="2.1.1" />
+  <entry date="2015-10-08" category="tech" action="update">
+    <change>
+      <text locale="en">Updated to as2-lib 2.2.1</text>
+    </change>
+  </entry>
   <release date="2015-09-27" version="2.1.0" />
   <entry date="2015-09-27" category="tech" action="update">
     <change>
