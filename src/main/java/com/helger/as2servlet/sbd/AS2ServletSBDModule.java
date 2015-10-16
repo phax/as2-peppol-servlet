@@ -40,8 +40,8 @@ import com.helger.commons.string.StringHelper;
 import com.helger.peppol.identifier.doctype.IPeppolDocumentTypeIdentifier;
 import com.helger.peppol.identifier.participant.IPeppolParticipantIdentifier;
 import com.helger.peppol.identifier.process.IPeppolProcessIdentifier;
-import com.helger.peppol.sbdh.DocumentData;
-import com.helger.peppol.sbdh.read.DocumentDataReader;
+import com.helger.peppol.sbdh.PeppolSBDHDocument;
+import com.helger.peppol.sbdh.read.PeppolSBDHDocumentReader;
 import com.helger.peppol.smp.ESMPTransportProfile;
 import com.helger.peppol.smp.EndpointType;
 import com.helger.peppol.smpclient.SMPClientReadOnly;
@@ -231,7 +231,7 @@ public final class AS2ServletSBDModule extends AbstractProcessorModule
 
       if (AS2PeppolServletConfiguration.isReceiverCheckEnabled ())
       {
-        final DocumentData aDD = new DocumentDataReader ().extractData (aSBD);
+        final PeppolSBDHDocument aDD = new PeppolSBDHDocumentReader ().extractData (aSBD);
         final String sMessageID = aDD.getInstanceIdentifier ();
 
         // Get the endpoint information required from the recipient
