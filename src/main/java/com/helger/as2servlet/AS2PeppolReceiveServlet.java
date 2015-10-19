@@ -65,6 +65,8 @@ public class AS2PeppolReceiveServlet extends HttpServlet
    * configuration file as the base directory.
    *
    * @return The configuration file to be used. MUST not be <code>null</code>.
+   * @throws ServletException
+   *         If no or an invalid configuration file was provided.
    */
   @OverrideOnDemand
   @Nonnull
