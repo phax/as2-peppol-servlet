@@ -18,12 +18,18 @@
 
 -->
 <changelog xmlns="http://www.helger.com/xsd/changelog/1.0" version="1.0" component="as2-peppol-servlet">
-  <release date="2015-10-19" version="2.1.2" />
+  <entry date="2015-10-22" category="tech" action="update">
+    <change>
+      <text locale="en">Extracted the generic part into project as2-servlet</text>
+    </change>
+  </entry>
+  <release date="2015-10-19" version="2.2.1" />
   <entry date="2015-10-19" category="tech" action="update">
     <change>
       <text locale="en">Updated to as2-lib 2.2.2 with Bouncy Castle 1.53</text>
     </change>
   </entry>
+  <release date="2015-10-16" version="2.2.0" />
   <release date="2015-10-08" version="2.1.1" />
   <entry date="2015-10-08" category="tech" action="update">
     <change>

@@ -1,4 +1,4 @@
-package com.helger.as2servlet;
+package com.helger.peppol.as2servlet;
 
 import java.security.cert.X509Certificate;
 

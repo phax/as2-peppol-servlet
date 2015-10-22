@@ -14,13 +14,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.as2servlet.sbd;
+package com.helger.peppol.as2servlet.sbd;
 
 import javax.annotation.Nonnull;
 
 import org.unece.cefact.namespaces.sbdh.StandardBusinessDocument;
 
 import com.helger.commons.annotation.IsSPIImplementation;
+import com.helger.peppol.as2servlet.sbd.IAS2IncomingSBDHandlerSPI;
 
 @IsSPIImplementation
 public class MockIncomingSBDHandler implements IAS2IncomingSBDHandlerSPI

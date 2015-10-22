@@ -14,28 +14,30 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.as2servlet.util;
+package com.helger.peppol.as2servlet.sbd;
 
-import com.helger.as2lib.exception.OpenAS2Exception;
-import com.helger.as2lib.processor.receiver.AS2ReceiverModule;
+import javax.annotation.Nonnull;
+
+import org.unece.cefact.namespaces.sbdh.StandardBusinessDocument;
+
+import com.helger.commons.annotation.IsSPIInterface;
 
 /**
- * A specialized {@link AS2ReceiverModule} implementation that disables the
- * active parts.
+ * This is the SPI interface that must be implemented to handle incoming SBD
+ * documents.
  * 
  * @author Philip Helger
  */
-public final class AS2ServletReceiverModule extends AS2ReceiverModule
+@IsSPIInterface
+public interface IAS2IncomingSBDHandlerSPI
 {
-  @Override
-  public void doStart () throws OpenAS2Exception
-  {
-    throw new UnsupportedOperationException ("Never start this module!");
-  }
-
-  @Override
-  public void doStop () throws OpenAS2Exception
-  {
-    throw new UnsupportedOperationException ("Never stop this module!");
-  }
+  /**
+   * Handle the provided incoming StandardBusinessDocument
+   *
+   * @param aSBD
+   *        The incoming document that is never <code>null</code>.
+   * @throws Exception
+   *         In case it cannot be processed.
+   */
+  void handleIncomingSBD (@Nonnull StandardBusinessDocument aSBD) throws Exception;
 }
