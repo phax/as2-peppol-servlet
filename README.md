@@ -40,7 +40,7 @@ Additionally to the configuration file specified in as2-servlet an additional pr
 <openas2>
   ...
     <!-- [required] Process incoming SBD documents -->
-    <module classname="com.helger.as2servlet.sbd.AS2ServletSBDModule" />      
+    <module classname="com.helger.peppol.as2servlet.AS2ServletSBDModule" />      
   </processor>
 </openas2>
 ```
