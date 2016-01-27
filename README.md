@@ -61,4 +61,5 @@ A [dummy SPI implementation](https://github.com/phax/as2-peppol-servlet/blob/mas
 
 ---
 
-On Twitter: <a href="https://twitter.com/philiphelger">Follow @philiphelger</a>
+My personal [Coding Styleguide](https://github.com/phax/meta/blob/master/CodeingStyleguide.md) |
+On Twitter: <a href="https://twitter.com/philiphelger">@philiphelger</a>
