@@ -36,9 +36,9 @@ import com.helger.as2lib.processor.module.AbstractProcessorModule;
 import com.helger.as2lib.processor.storage.IProcessorStorageModule;
 import com.helger.commons.lang.ServiceLoaderHelper;
 import com.helger.commons.string.StringHelper;
-import com.helger.peppol.identifier.doctype.IPeppolDocumentTypeIdentifier;
-import com.helger.peppol.identifier.participant.IPeppolParticipantIdentifier;
-import com.helger.peppol.identifier.process.IPeppolProcessIdentifier;
+import com.helger.peppol.identifier.generic.doctype.IDocumentTypeIdentifier;
+import com.helger.peppol.identifier.generic.participant.IParticipantIdentifier;
+import com.helger.peppol.identifier.generic.process.IProcessIdentifier;
 import com.helger.peppol.sbdh.PeppolSBDHDocument;
 import com.helger.peppol.sbdh.read.PeppolSBDHDocumentReader;
 import com.helger.peppol.smp.ESMPTransportProfile;
@@ -96,9 +96,9 @@ public final class AS2ServletSBDModule extends AbstractProcessorModule
    *         In case the endpoint address could not be resolved.
    */
   @Nullable
-  private static EndpointType _getReceiverEndpoint (@Nullable final IPeppolParticipantIdentifier aRecipientID,
-                                                    @Nullable final IPeppolDocumentTypeIdentifier aDocTypeID,
-                                                    @Nullable final IPeppolProcessIdentifier aProcessID,
+  private static EndpointType _getReceiverEndpoint (@Nullable final IParticipantIdentifier aRecipientID,
+                                                    @Nullable final IDocumentTypeIdentifier aDocTypeID,
+                                                    @Nullable final IProcessIdentifier aProcessID,
                                                     @Nonnull final String sMessageID) throws OpenAS2Exception
   {
     // Get configured client
