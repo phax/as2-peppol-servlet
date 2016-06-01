@@ -18,7 +18,6 @@ package com.helger.peppol.as2servlet;
 
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
-import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Nonnull;
@@ -34,6 +33,7 @@ import com.helger.as2lib.message.AS2Message;
 import com.helger.as2lib.message.IMessage;
 import com.helger.as2lib.processor.module.AbstractProcessorModule;
 import com.helger.as2lib.processor.storage.IProcessorStorageModule;
+import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.lang.ServiceLoaderHelper;
 import com.helger.commons.string.StringHelper;
 import com.helger.peppol.identifier.generic.doctype.IDocumentTypeIdentifier;
@@ -57,7 +57,7 @@ public final class AS2ServletSBDModule extends AbstractProcessorModule
 {
   private static final Logger s_aLogger = LoggerFactory.getLogger (AS2ServletSBDModule.class);
 
-  private final List <IAS2IncomingSBDHandlerSPI> m_aHandlers;
+  private final ICommonsList <IAS2IncomingSBDHandlerSPI> m_aHandlers;
 
   public AS2ServletSBDModule ()
   {
