@@ -44,8 +44,8 @@ import com.helger.peppol.sbdh.read.PeppolSBDHDocumentReader;
 import com.helger.peppol.smp.ESMPTransportProfile;
 import com.helger.peppol.smp.EndpointType;
 import com.helger.peppol.smpclient.SMPClientReadOnly;
-import com.helger.peppol.utils.CertificateHelper;
 import com.helger.sbdh.SBDMarshaller;
+import com.helger.security.certificate.CertificateHelper;
 
 /**
  * This processor module triggers the processing of the incoming SBD XML
