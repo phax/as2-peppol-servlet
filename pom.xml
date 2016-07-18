@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <!--
 
     Copyright (C) 2014-2016 Philip Helger (www.helger.com)
@@ -29,7 +30,6 @@
   <description>https://github.com/phax/as2-peppol-servlet.git</description>
   <url>https://github.com/phax/as2-peppol-servlet</url>
   <inceptionYear>2014</inceptionYear>
-  
   <licenses>
     <license>
       <name>Apache 2</name>
@@ -37,14 +37,12 @@
       <distribution>repo</distribution>
     </license>
   </licenses>
- 
   <scm>
     <url>http://github.com/phax/as2-peppol-servlet</url>
     <connection>scm:git:git@github.com:phax/as2-peppol-servlet.git</connection>
     <developerConnection>scm:git:git@github.com:phax/as2-peppol-servlet.git</developerConnection>
     <tag>HEAD</tag>
   </scm>
-
   <dependencyManagement>
     <dependencies>
       <dependency>
@@ -77,12 +75,11 @@
       </dependency>
     </dependencies>
   </dependencyManagement>
-
   <dependencies>
     <dependency>
       <groupId>com.helger</groupId>
       <artifactId>ph-commons</artifactId>
-    </dependency>  
+    </dependency>
     <dependency>
       <groupId>com.helger</groupId>
       <artifactId>as2-lib</artifactId>
@@ -94,22 +91,20 @@
     <dependency>
       <groupId>com.helger</groupId>
       <artifactId>ph-sbdh</artifactId>
-    </dependency>  
+    </dependency>
     <dependency>
       <groupId>com.helger</groupId>
       <artifactId>peppol-sbdh</artifactId>
-    </dependency>  
+    </dependency>
     <dependency>
       <groupId>com.helger</groupId>
       <artifactId>peppol-smp-client</artifactId>
-    </dependency>  
-    
+    </dependency>
     <dependency>
       <groupId>javax.servlet</groupId>
       <artifactId>javax.servlet-api</artifactId>
       <scope>provided</scope>
     </dependency>
-    
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
@@ -121,7 +116,6 @@
       <scope>test</scope>
     </dependency>
   </dependencies>
-
   <build>
     <plugins>
       <plugin>
@@ -130,12 +124,10 @@
         <extensions>true</extensions>
         <configuration>
           <instructions>
-            <Export-Package>
-              com.helger.peppol.as2servlet.*
-            </Export-Package>
-            <Import-Package>
-              !javax.annotation.*,*
-            </Import-Package>
+            <Export-Package>com.helger.peppol.as2servlet.*</Export-Package>
+            <Import-Package>!javax.annotation.*,*</Import-Package>
+            <Require-Capability>osgi.extender; filter:="(osgi.extender=osgi.serviceloader.processor)",
+osgi.serviceloader; filter:="(osgi.serviceloader=com.helger.peppol.as2servlet.IAS2IncomingSBDHandlerSPI)"; cardinality:=multiple</Require-Capability>
           </instructions>
         </configuration>
       </plugin>
