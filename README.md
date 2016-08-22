@@ -7,16 +7,23 @@ A stand alone servlet that takes AS2 requests with OpenPEPPOL StandardBusinessDo
 
 An example application that uses *as2-peppol-servlet* for receiving PEPPOL AS2 messages is my **[as2-peppol-server](https://github.com/phax/as2-peppol-server)** project. It may serve as a practical starting point.
 
-This package depends on **[ph-commons](https://github.com/phax/ph-commons)**, **[ph-sbdh](https://github.com/phax/ph-sbdh)**, **[as2-lib and as2-servlet](https://github.com/phax/as2-lib)**. This transitively includes Bouncy Castle (1.53) and javax.mail (1.5.4) among other libraries.
+This package depends on **[ph-commons](https://github.com/phax/ph-commons)**, **[ph-sbdh](https://github.com/phax/ph-sbdh)**, **[as2-lib and as2-servlet](https://github.com/phax/as2-lib)**. This transitively includes Bouncy Castle (1.54) and javax.mail (1.5.6) among other libraries.
 
-*as2-peppol-servlet* handles incoming AS2 messages, and parses them as OASIS Standard Business Documents (SBD). It does not contain extraction of the SBD content or even handling of the UBL content since the purpose of this project is reusability. For validating the SBD against PEPPOL rules, the project **[peppol-sbdh](https://github.com/phax/peppol-sbdh)** is available and for handling UBL 2.0 or 2.1 files you may have a look at my **[ph-ubl](https://github.com/phax/ph-ubl)**.
-
-Since version 3.0.0 this project uses [as2-servlet](https://github.com/phax/as2-lib). Previously the servlet code was contained in this project but I decided to extract the generic part into a separate project for easier re-use.
+*as2-peppol-servlet* handles incoming AS2 messages, and parses them as OASIS Standard Business Documents (SBD). It does not contain extraction of the SBD content or even handling of the UBL content since the purpose of this project is reusability. For validating the SBD against PEPPOL rules, the project **[peppol-sbdh](https://github.com/phax/peppol-commons)** is available and for handling UBL 2.0 or 2.1 files you may have a look at my **[ph-ubl](https://github.com/phax/ph-ubl)**.
 
 This project is licensed under the Apache 2 License.
 
-Versions <= 1.0.1 are compatible with ph-commons < 6.0.
-Versions >= 2.0.0 are compatible with ph-commons >= 6.0.
+#News
+
+  * v4.0.0 - 2016-08-22
+    * Updated to JDK 8
+    * Binds to ph-commons 8.4.x
+  * v3.0.0
+    * This project uses [as2-servlet](https://github.com/phax/as2-lib). Previously the servlet code was contained in this project but I decided to extract the generic part into a separate project for easier re-use.
+  * v2.0.0
+    * Requires ph-commons 6.x
+  * v1.0.1
+    * Requires ph-commons 5.x
 
 #Usage
 To use this project you have to do the following:
@@ -31,7 +38,7 @@ Add the following to your pom.xml to use this artifact:
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>as2-peppol-servlet</artifactId>
-  <version>3.0.0</version>
+  <version>4.0.0</version>
 </dependency>
 ```
 
