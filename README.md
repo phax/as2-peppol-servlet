@@ -1,4 +1,4 @@
-#as2-peppol-servlet
+# as2-peppol-servlet
 
 [![Build Status](https://travis-ci.org/phax/as2-peppol-servlet.svg?branch=master)](https://travis-ci.org/phax/as2-peppol-servlet)
 ﻿
@@ -13,7 +13,7 @@ This package depends on **[ph-commons](https://github.com/phax/ph-commons)**, **
 
 This project is licensed under the Apache 2 License.
 
-#News
+# News
 
   * v4.0.1 - 2017-01-11
     * Just a new release with no new features
@@ -28,13 +28,13 @@ This project is licensed under the Apache 2 License.
   * v1.0.1
     * Requires ph-commons 5.x
 
-#Usage
+# Usage
 To use this project you have to do the following:
   1. Configure the AS2 servlet as specified in the [as2-servlet docs](https://github.com/phax/as2-lib)
   2. The key store must contain your PEPPOL AP certificate and the alias of the only entry must be the CN-value of your certificate's subject (e.g. `APP_1000000001`).
   3. Inside your project create an SPI implementation of the `com.helger.as2servlet.sbd.IAS2IncomingSBDHandlerSPI` interface to handling incoming SBD documents.
 
-##Add project via Maven
+## Maven Usage
 Add the following to your pom.xml to use this artifact:
 
 ```xml
@@ -45,7 +45,7 @@ Add the following to your pom.xml to use this artifact:
 </dependency>
 ```
 
-##AS2 Configuration file
+## AS2 Configuration file
 Additionally to the configuration file specified in as2-servlet an additional processor must be added:
  
 ```xml
@@ -58,7 +58,7 @@ Additionally to the configuration file specified in as2-servlet an additional pr
 </openas2>
 ```
 
-##SPI implementation
+## SPI implementation
 
 SPI stands for "Service provider interface" and is a Java standard feature to enable loose but typed coupling. [Read more on SPI](http://docs.oracle.com/javase/tutorial/ext/basics/spi.html)
 
