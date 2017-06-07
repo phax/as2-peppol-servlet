@@ -25,7 +25,7 @@
     <version>1.9.3</version>
   </parent>
   <artifactId>as2-peppol-servlet</artifactId>
-  <version>4.0.2</version>
+  <version>4.0.3-SNAPSHOT</version>
   <packaging>bundle</packaging>
   <description>https://github.com/phax/as2-peppol-servlet.git</description>
   <url>https://github.com/phax/as2-peppol-servlet</url>
@@ -41,7 +41,7 @@
     <url>http://github.com/phax/as2-peppol-servlet</url>
     <connection>scm:git:git@github.com:phax/as2-peppol-servlet.git</connection>
     <developerConnection>scm:git:git@github.com:phax/as2-peppol-servlet.git</developerConnection>
-    <tag>as2-peppol-servlet-4.0.2</tag>
+    <tag>HEAD</tag>
   </scm>
   <properties>
     <bc.version>1.57</bc.version>
