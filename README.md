@@ -14,7 +14,9 @@ This package depends on **[ph-commons](https://github.com/phax/ph-commons)**, **
 This project is licensed under the Apache 2 License.
 
 # News
-
+  * v5.0.0 - work in progress
+    * Updated to ph-commons 9.0.0
+    * Updated to BouncyCastle 1.58
   * v4.0.2 - 2017-06-07
     * Updated to as2-lib 3.0.3
   * v4.0.1 - 2017-01-11
