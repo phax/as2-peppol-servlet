@@ -14,23 +14,24 @@ This package depends on **[ph-commons](https://github.com/phax/ph-commons)**, **
 This project is licensed under the Apache 2 License.
 
 # News
-  * v5.0.0 - work in progress
-    * Updated to ph-commons 9.0.0
-    * Updated to BouncyCastle 1.58
-  * v4.0.2 - 2017-06-07
-    * Updated to as2-lib 3.0.3
-  * v4.0.1 - 2017-01-11
-    * Just a new release with no new features
-    * Binds to ph-commons 8.6.x
-  * v4.0.0 - 2016-08-22
-    * Updated to JDK 8
-    * Binds to ph-commons 8.4.x
-  * v3.0.0
-    * This project uses [as2-servlet](https://github.com/phax/as2-lib). Previously the servlet code was contained in this project but I decided to extract the generic part into a separate project for easier re-use.
-  * v2.0.0
-    * Requires ph-commons 6.x
-  * v1.0.1
-    * Requires ph-commons 5.x
+
+* v5.0.0 - work in progress
+  * Updated to ph-commons 9.0.0
+  * Updated to BouncyCastle 1.59
+* v4.0.2 - 2017-06-07
+  * Updated to as2-lib 3.0.3
+* v4.0.1 - 2017-01-11
+  * Just a new release with no new features
+  * Binds to ph-commons 8.6.x
+* v4.0.0 - 2016-08-22
+  * Updated to JDK 8
+  * Binds to ph-commons 8.4.x
+* v3.0.0
+  * This project uses [as2-servlet](https://github.com/phax/as2-lib). Previously the servlet code was contained in this project but I decided to extract the generic part into a separate project for easier re-use.
+* v2.0.0
+  * Requires ph-commons 6.x
+* v1.0.1
+  * Requires ph-commons 5.x
 
 # Usage
 To use this project you have to do the following:
