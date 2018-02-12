@@ -13,9 +13,9 @@ This package depends on **[ph-commons](https://github.com/phax/ph-commons)**, **
 
 This project is licensed under the Apache 2 License.
 
-# News
+# News and Noteworthy
 
-* v5.0.0 - work in progress
+* v5.0.0 - 2018-02-12
   * Updated to ph-commons 9.0.0
   * Updated to BouncyCastle 1.59
 * v4.0.2 - 2017-06-07
@@ -46,7 +46,7 @@ Add the following to your pom.xml to use this artifact:
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>as2-peppol-servlet</artifactId>
-  <version>4.0.2</version>
+  <version>5.0.0</version>
 </dependency>
 ```
 
