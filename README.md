@@ -15,6 +15,9 @@ This project is licensed under the Apache 2 License.
 
 # News and Noteworthy
 
+* v5.0.2  work in progress
+  * Updated to ph-commons 9.1.0
+* v5.0.1 - 2018-04-06
 * v5.0.0 - 2018-02-12
   * Updated to ph-commons 9.0.0
   * Updated to BouncyCastle 1.59
@@ -46,7 +49,7 @@ Add the following to your pom.xml to use this artifact:
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>as2-peppol-servlet</artifactId>
-  <version>5.0.0</version>
+  <version>5.0.1</version>
 </dependency>
 ```
 
