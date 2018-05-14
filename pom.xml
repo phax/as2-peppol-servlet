@@ -146,7 +146,7 @@
             <Export-Package>com.helger.peppol.as2servlet.*</Export-Package>
             <Import-Package>!javax.annotation.*,*</Import-Package>
             <Require-Capability>osgi.extender; filter:="(osgi.extender=osgi.serviceloader.processor)",
-osgi.serviceloader; filter:="(osgi.serviceloader=com.helger.peppol.as2servlet.IAS2IncomingSBDHandlerSPI)"; cardinality:=multiple</Require-Capability>
+osgi.serviceloader; filter:="(osgi.serviceloader=com.helger.peppol.as2servlet.IAS2IncomingSBDHandlerSPI)"; cardinality:=multiple; resolution:=optional</Require-Capability>
           </instructions>
         </configuration>
       </plugin>
