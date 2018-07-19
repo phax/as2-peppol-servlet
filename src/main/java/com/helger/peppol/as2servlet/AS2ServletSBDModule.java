@@ -55,7 +55,7 @@ import com.helger.security.certificate.CertificateHelper;
  */
 public final class AS2ServletSBDModule extends AbstractProcessorModule
 {
-  private static final Logger s_aLogger = LoggerFactory.getLogger (AS2ServletSBDModule.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (AS2ServletSBDModule.class);
 
   private final ICommonsList <IAS2IncomingSBDHandlerSPI> m_aHandlers;
 
@@ -64,14 +64,14 @@ public final class AS2ServletSBDModule extends AbstractProcessorModule
     m_aHandlers = ServiceLoaderHelper.getAllSPIImplementations (IAS2IncomingSBDHandlerSPI.class);
     if (m_aHandlers.isEmpty ())
     {
-      s_aLogger.warn ("No SPI handler of type " +
+      LOGGER.warn ("No SPI handler of type " +
                       IAS2IncomingSBDHandlerSPI.class.getName () +
                       " for incoming SBD documents is registered. Therefore incoming documents will NOT be handled and maybe discarded if no other processors are active!");
     }
     else
     {
-      if (s_aLogger.isDebugEnabled ())
-        s_aLogger.debug ("Loaded " + m_aHandlers.size () + " IAS2IncomingSBDHandlerSPI implementations");
+      if (LOGGER.isDebugEnabled ())
+        LOGGER.debug ("Loaded " + m_aHandlers.size () + " IAS2IncomingSBDHandlerSPI implementations");
     }
   }
 
@@ -111,9 +111,9 @@ public final class AS2ServletSBDModule extends AbstractProcessorModule
 
     try
     {
-      if (s_aLogger.isDebugEnabled ())
+      if (LOGGER.isDebugEnabled ())
       {
-        s_aLogger.debug (sMessageID +
+        LOGGER.debug (sMessageID +
                          " Looking up the endpoint of recipient " +
                          aRecipientID.getURIEncoded () +
                          " at SMP URL '" +
@@ -146,12 +146,12 @@ public final class AS2ServletSBDModule extends AbstractProcessorModule
     if (StringHelper.hasNoText (sOwnAPUrl))
       throw new OpenAS2Exception ("The endpoint URL of this AP is not configured!");
 
-    if (s_aLogger.isDebugEnabled ())
-      s_aLogger.debug (sMessageID + " Our AP URL is " + sOwnAPUrl);
+    if (LOGGER.isDebugEnabled ())
+      LOGGER.debug (sMessageID + " Our AP URL is " + sOwnAPUrl);
 
     final String sRecipientAPUrl = SMPClientReadOnly.getEndpointAddress (aRecipientEndpoint);
-    if (s_aLogger.isDebugEnabled ())
-      s_aLogger.debug (sMessageID + " Recipient AP URL is " + sRecipientAPUrl);
+    if (LOGGER.isDebugEnabled ())
+      LOGGER.debug (sMessageID + " Recipient AP URL is " + sRecipientAPUrl);
 
     // Is it for us?
     if (sRecipientAPUrl == null || !sRecipientAPUrl.contains (sOwnAPUrl))
@@ -162,7 +162,7 @@ public final class AS2ServletSBDModule extends AbstractProcessorModule
                                "' and is not for us (" +
                                sOwnAPUrl +
                                ")";
-      s_aLogger.error (sErrorMsg);
+      LOGGER.error (sErrorMsg);
       throw new OpenAS2Exception (sErrorMsg);
     }
   }
@@ -197,8 +197,8 @@ public final class AS2ServletSBDModule extends AbstractProcessorModule
     }
 
     // Certificate found
-    if (s_aLogger.isDebugEnabled ())
-      s_aLogger.debug (sMessageID + " Conformant recipient certificate present: " + aRecipientCert.toString ());
+    if (LOGGER.isDebugEnabled ())
+      LOGGER.debug (sMessageID + " Conformant recipient certificate present: " + aRecipientCert.toString ());
 
     // Compare serial numbers
     if (!aOurCert.getSerialNumber ().equals (aRecipientCert.getSerialNumber ()))
@@ -209,12 +209,12 @@ public final class AS2ServletSBDModule extends AbstractProcessorModule
                                ") does not match this APs configured Certificate (" +
                                aOurCert +
                                ") - different serial numbers - ignoring document";
-      s_aLogger.error (sErrorMsg);
+      LOGGER.error (sErrorMsg);
       throw new OpenAS2Exception (sErrorMsg);
     }
 
-    if (s_aLogger.isDebugEnabled ())
-      s_aLogger.debug (sMessageID + " The certificate of the SMP lookup matches our certificate");
+    if (LOGGER.isDebugEnabled ())
+      LOGGER.debug (sMessageID + " The certificate of the SMP lookup matches our certificate");
   }
 
   public void handle (@Nonnull final String sAction,
@@ -252,7 +252,7 @@ public final class AS2ServletSBDModule extends AbstractProcessorModule
       }
       else
       {
-        s_aLogger.info ("Endpoint checks for the AS2 AP are disabled");
+        LOGGER.info ("Endpoint checks for the AS2 AP are disabled");
       }
 
       // Handle incoming document via SPI
