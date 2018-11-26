@@ -15,6 +15,8 @@ This project is licensed under the Apache 2 License.
 
 # News and Noteworthy
 
+* v5.0.3 - 2018-11-26
+    * Requires ph-commons 9.2.0
 * v5.0.2 - 2018-06-29
   * Updated to ph-commons 9.1.2
 * v5.0.1 - 2018-04-06
