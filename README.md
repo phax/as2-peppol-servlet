@@ -15,6 +15,8 @@ This project is licensed under the Apache 2 License.
 
 # News and Noteworthy
 
+* v5.0.4 - 2019-05-17
+    * Updated to as2-lib 4.3.0
 * v5.0.3 - 2018-11-26
     * Requires ph-commons 9.2.0
 * v5.0.2 - 2018-06-29
@@ -51,7 +53,7 @@ Add the following to your pom.xml to use this artifact:
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>as2-peppol-servlet</artifactId>
-  <version>5.0.2</version>
+  <version>5.0.4</version>
 </dependency>
 ```
 
