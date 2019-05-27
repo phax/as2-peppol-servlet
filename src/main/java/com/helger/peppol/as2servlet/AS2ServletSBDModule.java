@@ -36,9 +36,9 @@ import com.helger.as2lib.processor.storage.IProcessorStorageModule;
 import com.helger.commons.collection.impl.ICommonsList;
 import com.helger.commons.lang.ServiceLoaderHelper;
 import com.helger.commons.string.StringHelper;
-import com.helger.peppol.identifier.generic.doctype.IDocumentTypeIdentifier;
-import com.helger.peppol.identifier.generic.participant.IParticipantIdentifier;
-import com.helger.peppol.identifier.generic.process.IProcessIdentifier;
+import com.helger.peppol.identifier.IDocumentTypeIdentifier;
+import com.helger.peppol.identifier.IParticipantIdentifier;
+import com.helger.peppol.identifier.IProcessIdentifier;
 import com.helger.peppol.sbdh.PeppolSBDHDocument;
 import com.helger.peppol.sbdh.read.PeppolSBDHDocumentReader;
 import com.helger.peppol.smp.ESMPTransportProfile;
@@ -65,8 +65,8 @@ public final class AS2ServletSBDModule extends AbstractProcessorModule
     if (m_aHandlers.isEmpty ())
     {
       LOGGER.warn ("No SPI handler of type " +
-                      IAS2IncomingSBDHandlerSPI.class.getName () +
-                      " for incoming SBD documents is registered. Therefore incoming documents will NOT be handled and maybe discarded if no other processors are active!");
+                   IAS2IncomingSBDHandlerSPI.class.getName () +
+                   " for incoming SBD documents is registered. Therefore incoming documents will NOT be handled and maybe discarded if no other processors are active!");
     }
     else
     {
@@ -114,16 +114,16 @@ public final class AS2ServletSBDModule extends AbstractProcessorModule
       if (LOGGER.isDebugEnabled ())
       {
         LOGGER.debug (sMessageID +
-                         " Looking up the endpoint of recipient " +
-                         aRecipientID.getURIEncoded () +
-                         " at SMP URL '" +
-                         aSMPClient.getSMPHostURI () +
-                         "' for " +
-                         aRecipientID.getURIEncoded () +
-                         " and " +
-                         aDocTypeID.getURIEncoded () +
-                         " and " +
-                         aProcessID.getURIEncoded ());
+                      " Looking up the endpoint of recipient " +
+                      aRecipientID.getURIEncoded () +
+                      " at SMP URL '" +
+                      aSMPClient.getSMPHostURI () +
+                      "' for " +
+                      aRecipientID.getURIEncoded () +
+                      " and " +
+                      aDocTypeID.getURIEncoded () +
+                      " and " +
+                      aProcessID.getURIEncoded ());
       }
 
       // Query the SMP
