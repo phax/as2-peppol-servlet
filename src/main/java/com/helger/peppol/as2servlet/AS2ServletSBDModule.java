@@ -36,14 +36,14 @@ import com.helger.as2lib.processor.storage.IProcessorStorageModule;
 import com.helger.commons.collection.impl.ICommonsList;
 import com.helger.commons.lang.ServiceLoaderHelper;
 import com.helger.commons.string.StringHelper;
-import com.helger.peppol.identifier.IDocumentTypeIdentifier;
-import com.helger.peppol.identifier.IParticipantIdentifier;
-import com.helger.peppol.identifier.IProcessIdentifier;
 import com.helger.peppol.sbdh.PeppolSBDHDocument;
 import com.helger.peppol.sbdh.read.PeppolSBDHDocumentReader;
 import com.helger.peppol.smp.ESMPTransportProfile;
 import com.helger.peppol.smp.EndpointType;
 import com.helger.peppol.smpclient.SMPClientReadOnly;
+import com.helger.peppolid.IDocumentTypeIdentifier;
+import com.helger.peppolid.IParticipantIdentifier;
+import com.helger.peppolid.IProcessIdentifier;
 import com.helger.sbdh.SBDMarshaller;
 import com.helger.security.certificate.CertificateHelper;
 
