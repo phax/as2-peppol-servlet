@@ -34,6 +34,7 @@ import com.helger.as2lib.message.IMessage;
 import com.helger.as2lib.processor.module.AbstractProcessorModule;
 import com.helger.as2lib.processor.storage.IProcessorStorageModule;
 import com.helger.commons.collection.impl.ICommonsList;
+import com.helger.commons.http.HttpHeaderMap;
 import com.helger.commons.lang.ServiceLoaderHelper;
 import com.helger.commons.string.StringHelper;
 import com.helger.peppol.sbdh.PeppolSBDHDocument;
@@ -256,8 +257,9 @@ public final class AS2ServletSBDModule extends AbstractProcessorModule
       }
 
       // Handle incoming document via SPI
+      final HttpHeaderMap aHeaders = aMsg.headers ().getClone ();
       for (final IAS2IncomingSBDHandlerSPI aHandler : m_aHandlers)
-        aHandler.handleIncomingSBD (aSBD);
+        aHandler.handleIncomingSBD (aHeaders, aSBD);
     }
     catch (final Exception ex)
     {

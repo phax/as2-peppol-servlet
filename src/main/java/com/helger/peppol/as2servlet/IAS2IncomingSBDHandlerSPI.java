@@ -21,11 +21,12 @@ import javax.annotation.Nonnull;
 import org.unece.cefact.namespaces.sbdh.StandardBusinessDocument;
 
 import com.helger.commons.annotation.IsSPIInterface;
+import com.helger.commons.http.HttpHeaderMap;
 
 /**
  * This is the SPI interface that must be implemented to handle incoming SBD
  * documents.
- * 
+ *
  * @author Philip Helger
  */
 @IsSPIInterface
@@ -34,10 +35,12 @@ public interface IAS2IncomingSBDHandlerSPI
   /**
    * Handle the provided incoming StandardBusinessDocument
    *
+   * @param aHeaders
+   *        The HTTP headers of the incoming request. Never <code>null</code>.
    * @param aSBD
    *        The incoming document that is never <code>null</code>.
    * @throws Exception
    *         In case it cannot be processed.
    */
-  void handleIncomingSBD (@Nonnull StandardBusinessDocument aSBD) throws Exception;
+  void handleIncomingSBD (@Nonnull HttpHeaderMap aHeaders, @Nonnull StandardBusinessDocument aSBD) throws Exception;
 }

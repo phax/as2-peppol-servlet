@@ -18,17 +18,27 @@ package com.helger.peppol.as2servlet.mock;
 
 import javax.annotation.Nonnull;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.unece.cefact.namespaces.sbdh.StandardBusinessDocument;
 
 import com.helger.commons.annotation.IsSPIImplementation;
+import com.helger.commons.http.HttpHeaderMap;
 import com.helger.peppol.as2servlet.IAS2IncomingSBDHandlerSPI;
 
 @IsSPIImplementation
 public class MockIncomingSBDHandler implements IAS2IncomingSBDHandlerSPI
 {
-  public void handleIncomingSBD (@Nonnull final StandardBusinessDocument aSBD) throws Exception
+  private static final Logger LOGGER = LoggerFactory.getLogger (MockIncomingSBDHandler.class);
+
+  public void handleIncomingSBD (@Nonnull final HttpHeaderMap aHeaders,
+                                 @Nonnull final StandardBusinessDocument aSBD) throws Exception
   {
-    // Do something with the incoming SBD
-    System.out.println (aSBD.toString ());
+    // Do something with the incoming headers and SBD
+    LOGGER.info ("Headers:\n");
+    LOGGER.info (aHeaders.toString ());
+
+    LOGGER.info ("SBD:\n");
+    LOGGER.info (aSBD.toString ());
   }
 }

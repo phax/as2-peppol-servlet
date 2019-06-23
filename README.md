@@ -15,6 +15,8 @@ This project is licensed under the Apache 2 License.
 
 # News and Noteworthy
 
+* v5.1.0 - work in progress
+    * Added support to handle headers of incoming messages - API change
 * v5.0.5 - 2019-06-18
     * Updated to peppol-commons 7.0.0
     * Updated to as2-lib 4.4.0
