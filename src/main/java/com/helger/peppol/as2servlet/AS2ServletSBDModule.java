@@ -33,6 +33,7 @@ import com.helger.as2lib.message.AS2Message;
 import com.helger.as2lib.message.IMessage;
 import com.helger.as2lib.processor.module.AbstractProcessorModule;
 import com.helger.as2lib.processor.storage.IProcessorStorageModule;
+import com.helger.commons.ValueEnforcer;
 import com.helger.commons.collection.impl.ICommonsList;
 import com.helger.commons.http.HttpHeaderMap;
 import com.helger.commons.lang.ServiceLoaderHelper;
@@ -54,14 +55,17 @@ import com.helger.security.certificate.CertificateHelper;
  *
  * @author Philip Helger
  */
-public final class AS2ServletSBDModule extends AbstractProcessorModule
+public class AS2ServletSBDModule extends AbstractProcessorModule
 {
   private static final Logger LOGGER = LoggerFactory.getLogger (AS2ServletSBDModule.class);
 
+  private final EPeppolAS2Version m_eAS2Version;
   private final ICommonsList <IAS2IncomingSBDHandlerSPI> m_aHandlers;
 
-  public AS2ServletSBDModule ()
+  public AS2ServletSBDModule (@Nonnull final EPeppolAS2Version eAS2Version)
   {
+    ValueEnforcer.notNull (eAS2Version, "AS2Version");
+    m_eAS2Version = eAS2Version;
     m_aHandlers = ServiceLoaderHelper.getAllSPIImplementations (IAS2IncomingSBDHandlerSPI.class);
     if (m_aHandlers.isEmpty ())
     {
@@ -224,6 +228,10 @@ public final class AS2ServletSBDModule extends AbstractProcessorModule
   {
     try
     {
+      // Set the signing algorithm, so that the MIC calculation is done
+      // correctly
+      aMsg.partnership ().setSigningAlgorithm (m_eAS2Version.getCryptoAlgorithmSign ());
+
       // Interpret content as SBD
       final StandardBusinessDocument aSBD = new SBDMarshaller ().read (aMsg.getData ().getInputStream ());
       if (aSBD == null)
