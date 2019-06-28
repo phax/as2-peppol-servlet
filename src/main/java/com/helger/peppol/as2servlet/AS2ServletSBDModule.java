@@ -37,6 +37,7 @@ import com.helger.commons.ValueEnforcer;
 import com.helger.commons.collection.impl.ICommonsList;
 import com.helger.commons.http.HttpHeaderMap;
 import com.helger.commons.lang.ServiceLoaderHelper;
+import com.helger.commons.state.ETriState;
 import com.helger.commons.string.StringHelper;
 import com.helger.peppol.sbdh.PeppolSBDHDocument;
 import com.helger.peppol.sbdh.read.PeppolSBDHDocumentReader;
@@ -231,6 +232,7 @@ public class AS2ServletSBDModule extends AbstractProcessorModule
       // Set the signing algorithm, so that the MIC calculation is done
       // correctly
       aMsg.partnership ().setSigningAlgorithm (m_eAS2Version.getCryptoAlgorithmSign ());
+      aMsg.partnership ().setVerifyUseCertificateInBodyPart (ETriState.TRUE);
 
       // Interpret content as SBD
       final StandardBusinessDocument aSBD = new SBDMarshaller ().read (aMsg.getData ().getInputStream ());
