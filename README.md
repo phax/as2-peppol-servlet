@@ -15,9 +15,10 @@ This project is licensed under the Apache 2 License.
 
 # News and Noteworthy
 
-* v5.1.0 - work in progress
+* v5.1.0 - 2019-09-26
     * Added support to handle headers of incoming messages - API change
     * Added support for PEPPOL AS2 profile v2
+    * Updated to as2-lib 4.4.4
 * v5.0.5 - 2019-06-18
     * Updated to peppol-commons 7.0.0
     * Updated to as2-lib 4.4.0
@@ -59,7 +60,7 @@ Add the following to your pom.xml to use this artifact:
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>as2-peppol-servlet</artifactId>
-  <version>5.0.5</version>
+  <version>5.1.0</version>
 </dependency>
 ```
 
