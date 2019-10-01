@@ -63,6 +63,16 @@ public class AS2ServletSBDModule extends AbstractProcessorModule
   private final EPeppolAS2Version m_eAS2Version;
   private final ICommonsList <IAS2IncomingSBDHandlerSPI> m_aHandlers;
 
+  /**
+   * No-argument constructor is needed because it is referenced from the server
+   * configuration file.
+   */
+  public AS2ServletSBDModule ()
+  {
+    // Still V1 is the default
+    this (EPeppolAS2Version.V1);
+  }
+
   public AS2ServletSBDModule (@Nonnull final EPeppolAS2Version eAS2Version)
   {
     ValueEnforcer.notNull (eAS2Version, "AS2Version");

@@ -15,6 +15,8 @@ This project is licensed under the Apache 2 License.
 
 # News and Noteworthy
 
+* v5.1.1 - 2019-10-01
+    * Added default constructor to `AS2ServletSBDModule`
 * v5.1.0 - 2019-09-26
     * Added support to handle headers of incoming messages - API change
     * Added support for PEPPOL AS2 profile v2
@@ -60,7 +62,7 @@ Add the following to your pom.xml to use this artifact:
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>as2-peppol-servlet</artifactId>
-  <version>5.1.0</version>
+  <version>5.1.1</version>
 </dependency>
 ```
 
