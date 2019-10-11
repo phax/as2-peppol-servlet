@@ -15,6 +15,8 @@ This project is licensed under the Apache 2 License.
 
 # News and Noteworthy
 
+* v5.1.2 - 2019-11-11
+    * Updated to as2-lib 4.4.5
 * v5.1.1 - 2019-10-01
     * Added default constructor to `AS2ServletSBDModule`
 * v5.1.0 - 2019-09-26
@@ -62,7 +64,7 @@ Add the following to your pom.xml to use this artifact:
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>as2-peppol-servlet</artifactId>
-  <version>5.1.1</version>
+  <version>5.1.2</version>
 </dependency>
 ```
 
