@@ -15,6 +15,8 @@ This project is licensed under the Apache 2 License.
 
 # News and Noteworthy
 
+* v5.2.0 - work in progress
+    * Updated to as2-lib 4.5.0
 * v5.1.2 - 2019-11-11
     * Updated to as2-lib 4.4.5
 * v5.1.1 - 2019-10-01

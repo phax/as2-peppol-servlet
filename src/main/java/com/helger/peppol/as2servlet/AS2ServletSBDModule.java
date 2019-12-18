@@ -27,8 +27,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.unece.cefact.namespaces.sbdh.StandardBusinessDocument;
 
-import com.helger.as2lib.exception.OpenAS2Exception;
-import com.helger.as2lib.exception.WrappedOpenAS2Exception;
+import com.helger.as2lib.exception.AS2Exception;
+import com.helger.as2lib.exception.WrappedAS2Exception;
 import com.helger.as2lib.message.AS2Message;
 import com.helger.as2lib.message.IMessage;
 import com.helger.as2lib.processor.module.AbstractProcessorModule;
@@ -108,19 +108,19 @@ public class AS2ServletSBDModule extends AbstractProcessorModule
    * @param aProcessID
    *        PEPPOL process ID
    * @return The access point URL to be used or <code>null</code>
-   * @throws OpenAS2Exception
+   * @throws AS2Exception
    *         In case the endpoint address could not be resolved.
    */
   @Nullable
   private static EndpointType _getReceiverEndpoint (@Nullable final IParticipantIdentifier aRecipientID,
                                                     @Nullable final IDocumentTypeIdentifier aDocTypeID,
                                                     @Nullable final IProcessIdentifier aProcessID,
-                                                    @Nonnull final String sMessageID) throws OpenAS2Exception
+                                                    @Nonnull final String sMessageID) throws AS2Exception
   {
     // Get configured client
     final SMPClientReadOnly aSMPClient = AS2PeppolServletConfiguration.getSMPClient ();
     if (aSMPClient == null)
-      throw new OpenAS2Exception (sMessageID + " No SMP client configured!");
+      throw new AS2Exception (sMessageID + " No SMP client configured!");
 
     if (aRecipientID == null || aDocTypeID == null || aProcessID == null)
       return null;
@@ -147,20 +147,18 @@ public class AS2ServletSBDModule extends AbstractProcessorModule
     }
     catch (final Throwable t)
     {
-      throw new OpenAS2Exception (sMessageID +
-                                  " Failed to retrieve endpoint of recipient " +
-                                  aRecipientID.getURIEncoded (),
-                                  t);
+      throw new AS2Exception (sMessageID + " Failed to retrieve endpoint of recipient " + aRecipientID.getURIEncoded (),
+                              t);
     }
   }
 
   private static void _checkIfReceiverEndpointURLMatches (@Nonnull final EndpointType aRecipientEndpoint,
-                                                          @Nonnull final String sMessageID) throws OpenAS2Exception
+                                                          @Nonnull final String sMessageID) throws AS2Exception
   {
     // Get our public endpoint address from the configuration
     final String sOwnAPUrl = AS2PeppolServletConfiguration.getAS2EndpointURL ();
     if (StringHelper.hasNoText (sOwnAPUrl))
-      throw new OpenAS2Exception ("The endpoint URL of this AP is not configured!");
+      throw new AS2Exception ("The endpoint URL of this AP is not configured!");
 
     if (LOGGER.isDebugEnabled ())
       LOGGER.debug (sMessageID + " Our AP URL is " + sOwnAPUrl);
@@ -179,16 +177,16 @@ public class AS2ServletSBDModule extends AbstractProcessorModule
                                sOwnAPUrl +
                                ")";
       LOGGER.error (sErrorMsg);
-      throw new OpenAS2Exception (sErrorMsg);
+      throw new AS2Exception (sErrorMsg);
     }
   }
 
   private static void _checkIfEndpointCertificateMatches (@Nonnull final EndpointType aRecipientEndpoint,
-                                                          @Nonnull final String sMessageID) throws OpenAS2Exception
+                                                          @Nonnull final String sMessageID) throws AS2Exception
   {
     final X509Certificate aOurCert = AS2PeppolServletConfiguration.getAPCertificate ();
     if (aOurCert == null)
-      throw new OpenAS2Exception ("The certificate of this AP is not configured!");
+      throw new AS2Exception ("The certificate of this AP is not configured!");
 
     final String sRecipientCertString = aRecipientEndpoint.getCertificate ();
     X509Certificate aRecipientCert = null;
@@ -198,18 +196,18 @@ public class AS2ServletSBDModule extends AbstractProcessorModule
     }
     catch (final CertificateException t)
     {
-      throw new OpenAS2Exception (sMessageID +
-                                  " Internal error: Failed to convert looked up endpoint certificate string '" +
-                                  sRecipientCertString +
-                                  "' to an X.509 certificate!",
-                                  t);
+      throw new AS2Exception (sMessageID +
+                              " Internal error: Failed to convert looked up endpoint certificate string '" +
+                              sRecipientCertString +
+                              "' to an X.509 certificate!",
+                              t);
     }
 
     if (aRecipientCert == null)
     {
       // No certificate found - most likely because of invalid SMP entry
-      throw new OpenAS2Exception (sMessageID +
-                                  " No certificate found in looked up endpoint! Is this AP maybe NOT contained in an SMP?");
+      throw new AS2Exception (sMessageID +
+                              " No certificate found in looked up endpoint! Is this AP maybe NOT contained in an SMP?");
     }
 
     // Certificate found
@@ -226,7 +224,7 @@ public class AS2ServletSBDModule extends AbstractProcessorModule
                                aOurCert +
                                ") - different serial numbers - ignoring document";
       LOGGER.error (sErrorMsg);
-      throw new OpenAS2Exception (sErrorMsg);
+      throw new AS2Exception (sErrorMsg);
     }
 
     if (LOGGER.isDebugEnabled ())
@@ -235,7 +233,7 @@ public class AS2ServletSBDModule extends AbstractProcessorModule
 
   public void handle (@Nonnull final String sAction,
                       @Nonnull final IMessage aMsg,
-                      @Nullable final Map <String, Object> aOptions) throws OpenAS2Exception
+                      @Nullable final Map <String, Object> aOptions) throws AS2Exception
   {
     try
     {
@@ -262,8 +260,8 @@ public class AS2ServletSBDModule extends AbstractProcessorModule
 
         if (aReceiverEndpoint == null)
         {
-          throw new OpenAS2Exception (sMessageID +
-                                      " Failed to resolve endpoint for provided receiver/documentType/process - not handling document");
+          throw new AS2Exception (sMessageID +
+                                  " Failed to resolve endpoint for provided receiver/documentType/process - not handling document");
         }
         // Check if the message is for us
         _checkIfReceiverEndpointURLMatches (aReceiverEndpoint, sMessageID);
@@ -284,7 +282,7 @@ public class AS2ServletSBDModule extends AbstractProcessorModule
     catch (final Exception ex)
     {
       // Something went wrong
-      throw WrappedOpenAS2Exception.wrap (ex);
+      throw WrappedAS2Exception.wrap (ex);
     }
   }
 }
