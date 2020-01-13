@@ -101,6 +101,8 @@ public class AS2ServletSBDModule extends AbstractProcessorModule
   }
 
   /**
+   * @param sLogPrefix
+   *        Log prefix
    * @param aRecipientID
    *        PEPPOL Recipient ID
    * @param aDocTypeID
@@ -112,15 +114,15 @@ public class AS2ServletSBDModule extends AbstractProcessorModule
    *         In case the endpoint address could not be resolved.
    */
   @Nullable
-  private static EndpointType _getReceiverEndpoint (@Nullable final IParticipantIdentifier aRecipientID,
+  private static EndpointType _getReceiverEndpoint (@Nonnull final String sLogPrefix,
+                                                    @Nullable final IParticipantIdentifier aRecipientID,
                                                     @Nullable final IDocumentTypeIdentifier aDocTypeID,
-                                                    @Nullable final IProcessIdentifier aProcessID,
-                                                    @Nonnull final String sMessageID) throws AS2Exception
+                                                    @Nullable final IProcessIdentifier aProcessID) throws AS2Exception
   {
     // Get configured client
     final SMPClientReadOnly aSMPClient = AS2PeppolServletConfiguration.getSMPClient ();
     if (aSMPClient == null)
-      throw new AS2Exception (sMessageID + " No SMP client configured!");
+      throw new AS2Exception (sLogPrefix + "No SMP client configured!");
 
     if (aRecipientID == null || aDocTypeID == null || aProcessID == null)
       return null;
@@ -129,8 +131,8 @@ public class AS2ServletSBDModule extends AbstractProcessorModule
     {
       if (LOGGER.isDebugEnabled ())
       {
-        LOGGER.debug (sMessageID +
-                      " Looking up the endpoint of recipient " +
+        LOGGER.debug (sLogPrefix +
+                      "Looking up the endpoint of recipient " +
                       aRecipientID.getURIEncoded () +
                       " at SMP URL '" +
                       aSMPClient.getSMPHostURI () +
@@ -147,30 +149,30 @@ public class AS2ServletSBDModule extends AbstractProcessorModule
     }
     catch (final Throwable t)
     {
-      throw new AS2Exception (sMessageID + " Failed to retrieve endpoint of recipient " + aRecipientID.getURIEncoded (),
+      throw new AS2Exception (sLogPrefix + "Failed to retrieve endpoint of recipient " + aRecipientID.getURIEncoded (),
                               t);
     }
   }
 
-  private static void _checkIfReceiverEndpointURLMatches (@Nonnull final EndpointType aRecipientEndpoint,
-                                                          @Nonnull final String sMessageID) throws AS2Exception
+  private static void _checkIfReceiverEndpointURLMatches (@Nonnull final String sLogPrefix,
+                                                          @Nonnull final EndpointType aRecipientEndpoint) throws AS2Exception
   {
     // Get our public endpoint address from the configuration
     final String sOwnAPUrl = AS2PeppolServletConfiguration.getAS2EndpointURL ();
     if (StringHelper.hasNoText (sOwnAPUrl))
-      throw new AS2Exception ("The endpoint URL of this AP is not configured!");
+      throw new AS2Exception (sLogPrefix + "The endpoint URL of this AP is not configured!");
 
     if (LOGGER.isDebugEnabled ())
-      LOGGER.debug (sMessageID + " Our AP URL is " + sOwnAPUrl);
+      LOGGER.debug (sLogPrefix + "Our AP URL is " + sOwnAPUrl);
 
     final String sRecipientAPUrl = SMPClientReadOnly.getEndpointAddress (aRecipientEndpoint);
     if (LOGGER.isDebugEnabled ())
-      LOGGER.debug (sMessageID + " Recipient AP URL is " + sRecipientAPUrl);
+      LOGGER.debug (sLogPrefix + "Recipient AP URL is " + sRecipientAPUrl);
 
     // Is it for us?
     if (sRecipientAPUrl == null || !sRecipientAPUrl.contains (sOwnAPUrl))
     {
-      final String sErrorMsg = sMessageID +
+      final String sErrorMsg = sLogPrefix +
                                " Internal error: The request is targeted for '" +
                                sRecipientAPUrl +
                                "' and is not for us (" +
@@ -181,12 +183,12 @@ public class AS2ServletSBDModule extends AbstractProcessorModule
     }
   }
 
-  private static void _checkIfEndpointCertificateMatches (@Nonnull final EndpointType aRecipientEndpoint,
-                                                          @Nonnull final String sMessageID) throws AS2Exception
+  private static void _checkIfEndpointCertificateMatches (@Nonnull final String sLogPrefix,
+                                                          @Nonnull final EndpointType aRecipientEndpoint) throws AS2Exception
   {
     final X509Certificate aOurCert = AS2PeppolServletConfiguration.getAPCertificate ();
     if (aOurCert == null)
-      throw new AS2Exception ("The certificate of this AP is not configured!");
+      throw new AS2Exception (sLogPrefix + "The certificate of this AP is not configured!");
 
     final String sRecipientCertString = aRecipientEndpoint.getCertificate ();
     X509Certificate aRecipientCert = null;
@@ -196,8 +198,8 @@ public class AS2ServletSBDModule extends AbstractProcessorModule
     }
     catch (final CertificateException t)
     {
-      throw new AS2Exception (sMessageID +
-                              " Internal error: Failed to convert looked up endpoint certificate string '" +
+      throw new AS2Exception (sLogPrefix +
+                              "Internal error: Failed to convert looked up endpoint certificate string '" +
                               sRecipientCertString +
                               "' to an X.509 certificate!",
                               t);
@@ -206,19 +208,19 @@ public class AS2ServletSBDModule extends AbstractProcessorModule
     if (aRecipientCert == null)
     {
       // No certificate found - most likely because of invalid SMP entry
-      throw new AS2Exception (sMessageID +
-                              " No certificate found in looked up endpoint! Is this AP maybe NOT contained in an SMP?");
+      throw new AS2Exception (sLogPrefix +
+                              "No certificate found in looked up endpoint! Is this AP maybe NOT contained in an SMP?");
     }
 
     // Certificate found
     if (LOGGER.isDebugEnabled ())
-      LOGGER.debug (sMessageID + " Conformant recipient certificate present: " + aRecipientCert.toString ());
+      LOGGER.debug (sLogPrefix + "Conformant recipient certificate present: " + aRecipientCert.toString ());
 
     // Compare serial numbers
     if (!aOurCert.getSerialNumber ().equals (aRecipientCert.getSerialNumber ()))
     {
-      final String sErrorMsg = sMessageID +
-                               " Certificate retrieved from SMP lookup (" +
+      final String sErrorMsg = sLogPrefix +
+                               "Certificate retrieved from SMP lookup (" +
                                aRecipientCert +
                                ") does not match this APs configured Certificate (" +
                                aOurCert +
@@ -228,7 +230,7 @@ public class AS2ServletSBDModule extends AbstractProcessorModule
     }
 
     if (LOGGER.isDebugEnabled ())
-      LOGGER.debug (sMessageID + " The certificate of the SMP lookup matches our certificate");
+      LOGGER.debug (sLogPrefix + "The certificate of the SMP lookup matches our certificate");
   }
 
   public void handle (@Nonnull final String sAction,
@@ -250,24 +252,24 @@ public class AS2ServletSBDModule extends AbstractProcessorModule
       if (AS2PeppolServletConfiguration.isReceiverCheckEnabled ())
       {
         final PeppolSBDHDocument aDD = new PeppolSBDHDocumentReader ().extractData (aSBD);
-        final String sMessageID = aDD.getInstanceIdentifier ();
+        final String sLogPrefix = "[" + aDD.getInstanceIdentifier () + "] ";
 
         // Get the endpoint information required from the recipient
-        final EndpointType aReceiverEndpoint = _getReceiverEndpoint (aDD.getReceiverAsIdentifier (),
+        final EndpointType aReceiverEndpoint = _getReceiverEndpoint (sLogPrefix,
+                                                                     aDD.getReceiverAsIdentifier (),
                                                                      aDD.getDocumentTypeAsIdentifier (),
-                                                                     aDD.getProcessAsIdentifier (),
-                                                                     sMessageID);
+                                                                     aDD.getProcessAsIdentifier ());
 
         if (aReceiverEndpoint == null)
         {
-          throw new AS2Exception (sMessageID +
-                                  " Failed to resolve endpoint for provided receiver/documentType/process - not handling document");
+          throw new AS2Exception (sLogPrefix +
+                                  "Failed to resolve endpoint for provided receiver/documentType/process - not handling document");
         }
         // Check if the message is for us
-        _checkIfReceiverEndpointURLMatches (aReceiverEndpoint, sMessageID);
+        _checkIfReceiverEndpointURLMatches (sLogPrefix, aReceiverEndpoint);
 
         // Get the recipient certificate from the SMP
-        _checkIfEndpointCertificateMatches (aReceiverEndpoint, sMessageID);
+        _checkIfEndpointCertificateMatches (sLogPrefix, aReceiverEndpoint);
       }
       else
       {
