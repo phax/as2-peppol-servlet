@@ -41,7 +41,6 @@ import com.helger.commons.state.ETriState;
 import com.helger.commons.string.StringHelper;
 import com.helger.peppol.sbdh.PeppolSBDHDocument;
 import com.helger.peppol.sbdh.read.PeppolSBDHDocumentReader;
-import com.helger.peppol.smp.ESMPTransportProfile;
 import com.helger.peppol.smp.EndpointType;
 import com.helger.peppol.smpclient.SMPClientReadOnly;
 import com.helger.peppolid.IDocumentTypeIdentifier;
@@ -114,10 +113,10 @@ public class AS2ServletSBDModule extends AbstractProcessorModule
    *         In case the endpoint address could not be resolved.
    */
   @Nullable
-  private static EndpointType _getReceiverEndpoint (@Nonnull final String sLogPrefix,
-                                                    @Nullable final IParticipantIdentifier aRecipientID,
-                                                    @Nullable final IDocumentTypeIdentifier aDocTypeID,
-                                                    @Nullable final IProcessIdentifier aProcessID) throws AS2Exception
+  private EndpointType _getReceiverEndpoint (@Nonnull final String sLogPrefix,
+                                             @Nullable final IParticipantIdentifier aRecipientID,
+                                             @Nullable final IDocumentTypeIdentifier aDocTypeID,
+                                             @Nullable final IProcessIdentifier aProcessID) throws AS2Exception
   {
     // Get configured client
     final SMPClientReadOnly aSMPClient = AS2PeppolServletConfiguration.getSMPClient ();
@@ -141,11 +140,13 @@ public class AS2ServletSBDModule extends AbstractProcessorModule
                       " and " +
                       aDocTypeID.getURIEncoded () +
                       " and " +
-                      aProcessID.getURIEncoded ());
+                      aProcessID.getURIEncoded () +
+                      " and " +
+                      m_eAS2Version.getTransportProfile ());
       }
 
       // Query the SMP
-      return aSMPClient.getEndpoint (aRecipientID, aDocTypeID, aProcessID, ESMPTransportProfile.TRANSPORT_PROFILE_AS2);
+      return aSMPClient.getEndpoint (aRecipientID, aDocTypeID, aProcessID, m_eAS2Version.getTransportProfile ());
     }
     catch (final Throwable t)
     {
