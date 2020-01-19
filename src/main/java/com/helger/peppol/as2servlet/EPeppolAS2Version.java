@@ -24,6 +24,7 @@ import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.id.IHasID;
 import com.helger.commons.lang.EnumHelper;
 import com.helger.peppol.smp.ESMPTransportProfile;
+import com.helger.peppol.smp.ISMPTransportProfile;
 
 /**
  * Special enum for all PEPPOL AS2 versions
@@ -39,15 +40,15 @@ public enum EPeppolAS2Version implements IHasID <String>
   V2 ("v2", ESMPTransportProfile.TRANSPORT_PROFILE_AS2_V2, ECryptoAlgorithmSign.DIGEST_SHA_256);
 
   private final String m_sID;
-  private final ESMPTransportProfile m_eTP;
-  private ECryptoAlgorithmSign m_eSigningAlgo;
+  private final ISMPTransportProfile m_aTP;
+  private final ECryptoAlgorithmSign m_eSigningAlgo;
 
   private EPeppolAS2Version (@Nonnull @Nonempty final String sID,
-                             @Nonnull final ESMPTransportProfile eTP,
+                             @Nonnull final ISMPTransportProfile eTP,
                              @Nonnull final ECryptoAlgorithmSign eSigningAlgo)
   {
     m_sID = sID;
-    m_eTP = eTP;
+    m_aTP = eTP;
     m_eSigningAlgo = eSigningAlgo;
   }
 
@@ -59,9 +60,9 @@ public enum EPeppolAS2Version implements IHasID <String>
   }
 
   @Nonnull
-  public ESMPTransportProfile getTransportProfile ()
+  public ISMPTransportProfile getTransportProfile ()
   {
-    return m_eTP;
+    return m_aTP;
   }
 
   @Nonnull
