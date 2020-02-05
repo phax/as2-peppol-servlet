@@ -30,7 +30,10 @@ public final class AS2ServletSBDModuleTest
   @Test
   public void testDefaultCtor ()
   {
-    final AS2ServletSBDModule x = new AS2ServletSBDModule ();
-    assertNotNull (x);
+    for (final EPeppolAS2Version e : EPeppolAS2Version.values ())
+    {
+      final AS2ServletSBDModule x = new AS2ServletSBDModule (e);
+      assertNotNull (x);
+    }
   }
 }
