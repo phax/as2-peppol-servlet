@@ -25,7 +25,7 @@
     <version>1.11.0</version>
   </parent>
   <artifactId>as2-peppol-servlet</artifactId>
-  <version>5.2.1-SNAPSHOT</version>
+  <version>5.3.0-SNAPSHOT</version>
   <packaging>bundle</packaging>
   <description>https://github.com/phax/as2-peppol-servlet.git</description>
   <url>https://github.com/phax/as2-peppol-servlet</url>
@@ -72,7 +72,7 @@
       <dependency>
         <groupId>com.helger</groupId>
         <artifactId>peppol-commons-parent-pom</artifactId>
-        <version>7.0.6</version>
+        <version>8.0.0-SNAPSHOT</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>

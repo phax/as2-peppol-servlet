@@ -41,13 +41,14 @@ import com.helger.commons.state.ETriState;
 import com.helger.commons.string.StringHelper;
 import com.helger.peppol.sbdh.PeppolSBDHDocument;
 import com.helger.peppol.sbdh.read.PeppolSBDHDocumentReader;
-import com.helger.peppol.smp.EndpointType;
-import com.helger.peppol.smpclient.SMPClientReadOnly;
 import com.helger.peppolid.IDocumentTypeIdentifier;
 import com.helger.peppolid.IParticipantIdentifier;
 import com.helger.peppolid.IProcessIdentifier;
 import com.helger.sbdh.SBDMarshaller;
 import com.helger.security.certificate.CertificateHelper;
+import com.helger.smpclient.peppol.ISMPServiceMetadataProvider;
+import com.helger.smpclient.peppol.SMPClientReadOnly;
+import com.helger.smpclient.peppol.jaxb.EndpointType;
 
 /**
  * This processor module triggers the processing of the incoming SBD XML
@@ -66,10 +67,11 @@ public class AS2ServletSBDModule extends AbstractProcessorModule
    * No-argument constructor is needed because it is referenced from the server
    * configuration file.
    */
+  @Deprecated
   public AS2ServletSBDModule ()
   {
-    // Still V1 is the default
-    this (EPeppolAS2Version.V1);
+    // V1 is the deprecated since 2020-02-01
+    this (EPeppolAS2Version.V2);
   }
 
   public AS2ServletSBDModule (@Nonnull final EPeppolAS2Version eAS2Version)
@@ -119,7 +121,7 @@ public class AS2ServletSBDModule extends AbstractProcessorModule
                                              @Nullable final IProcessIdentifier aProcessID) throws AS2Exception
   {
     // Get configured client
-    final SMPClientReadOnly aSMPClient = AS2PeppolServletConfiguration.getSMPClient ();
+    final ISMPServiceMetadataProvider aSMPClient = AS2PeppolServletConfiguration.getSMPClient ();
     if (aSMPClient == null)
       throw new AS2Exception (sLogPrefix + "No SMP client configured!");
 
@@ -133,11 +135,7 @@ public class AS2ServletSBDModule extends AbstractProcessorModule
         LOGGER.debug (sLogPrefix +
                       "Looking up the endpoint of recipient " +
                       aRecipientID.getURIEncoded () +
-                      " at SMP URL '" +
-                      aSMPClient.getSMPHostURI () +
-                      "' for " +
-                      aRecipientID.getURIEncoded () +
-                      " and " +
+                      " for " +
                       aDocTypeID.getURIEncoded () +
                       " and " +
                       aProcessID.getURIEncoded () +

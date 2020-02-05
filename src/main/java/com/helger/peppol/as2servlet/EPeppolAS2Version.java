@@ -33,10 +33,16 @@ import com.helger.peppol.smp.ISMPTransportProfile;
  */
 public enum EPeppolAS2Version implements IHasID <String>
 {
-  /** The PEPPOL AS2 transport profile v1 (SHA-1) */
+  /**
+   * The PEPPOL AS2 transport profile v1 (SHA-1). Deprecated since 2020-02-01
+   */
+  @Deprecated
   V1 ("v1", ESMPTransportProfile.TRANSPORT_PROFILE_AS2, ECryptoAlgorithmSign.DIGEST_SHA1),
 
-  /** The PEPPOL AS2 v2 transport profile v2 (SHA-256) */
+  /**
+   * The PEPPOL AS2 v2 transport profile v2 (SHA-256). Mandatory (when using
+   * AS2) since 2020-02-01.
+   */
   V2 ("v2", ESMPTransportProfile.TRANSPORT_PROFILE_AS2_V2, ECryptoAlgorithmSign.DIGEST_SHA_256);
 
   private final String m_sID;
