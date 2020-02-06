@@ -60,7 +60,7 @@ public class AS2ServletSBDModule extends AbstractProcessorModule
 {
   private static final Logger LOGGER = LoggerFactory.getLogger (AS2ServletSBDModule.class);
 
-  private final EPeppolAS2Version m_eAS2Version;
+  private EPeppolAS2Version m_eAS2Version;
   private final ICommonsList <IAS2IncomingSBDHandlerSPI> m_aHandlers;
 
   /**
@@ -76,8 +76,8 @@ public class AS2ServletSBDModule extends AbstractProcessorModule
 
   public AS2ServletSBDModule (@Nonnull final EPeppolAS2Version eAS2Version)
   {
-    ValueEnforcer.notNull (eAS2Version, "AS2Version");
-    m_eAS2Version = eAS2Version;
+    setPeppolAS2Version (eAS2Version);
+
     m_aHandlers = ServiceLoaderHelper.getAllSPIImplementations (IAS2IncomingSBDHandlerSPI.class);
     if (m_aHandlers.isEmpty ())
     {
@@ -90,6 +90,18 @@ public class AS2ServletSBDModule extends AbstractProcessorModule
       if (LOGGER.isDebugEnabled ())
         LOGGER.debug ("Loaded " + m_aHandlers.size () + " IAS2IncomingSBDHandlerSPI implementations");
     }
+  }
+
+  @Nonnull
+  public final EPeppolAS2Version getPeppolAS2Version ()
+  {
+    return m_eAS2Version;
+  }
+
+  public final void setPeppolAS2Version (@Nonnull final EPeppolAS2Version eAS2Version)
+  {
+    ValueEnforcer.notNull (eAS2Version, "AS2Version");
+    m_eAS2Version = eAS2Version;
   }
 
   public boolean canHandle (@Nonnull final String sAction,
