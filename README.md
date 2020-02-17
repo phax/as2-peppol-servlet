@@ -7,7 +7,7 @@ A stand alone servlet that takes AS2 requests with OpenPEPPOL StandardBusinessDo
 
 An example application that uses *as2-peppol-servlet* for receiving PEPPOL AS2 messages is my **[as2-peppol-server](https://github.com/phax/as2-peppol-server)** project. It may serve as a practical starting point.
 
-This package depends on **[ph-commons](https://github.com/phax/ph-commons)**, **[ph-sbdh](https://github.com/phax/ph-sbdh)**, **[as2-lib and as2-servlet](https://github.com/phax/as2-lib)**. This transitively includes Bouncy Castle (1.57) and javax.mail (1.5.6) among other libraries.
+This package depends on **[ph-commons](https://github.com/phax/ph-commons)**, **[ph-sbdh](https://github.com/phax/ph-sbdh)**, **[as2-lib and as2-servlet](https://github.com/phax/as2-lib)**. This transitively includes Bouncy Castle (1.64) and javax.mail (1.6.4) among other libraries.
 
 *as2-peppol-servlet* handles incoming AS2 messages, and parses them as OASIS Standard Business Documents (SBD). It does not contain extraction of the SBD content or even handling of the UBL content since the purpose of this project is reusability. For validating the SBD against PEPPOL rules, the project **[peppol-sbdh](https://github.com/phax/peppol-commons)** is available and for handling UBL 2.0 or 2.1 files you may have a look at my **[ph-ubl](https://github.com/phax/ph-ubl)**.
 
@@ -26,7 +26,7 @@ Add the following to your pom.xml to use this artifact:
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>as2-peppol-servlet</artifactId>
-  <version>5.3.0</version>
+  <version>5.3.1</version>
 </dependency>
 ```
 
@@ -55,6 +55,8 @@ A [dummy SPI implementation](https://github.com/phax/as2-peppol-servlet/blob/mas
 
 # News and Noteworthy
 
+* v5.3.1 - 2020-02-17
+    * Updated to ph-web 9.1.9
 * v5.3.0 - 2020-02-07
     * Fixed using the correct transport profile in receiver checks when using Peppol AS2 v2
     * Updated to peppol-commons 8.x
