@@ -24,6 +24,7 @@
     <artifactId>parent-pom</artifactId>
     <version>1.11.1</version>
   </parent>
+  <groupId>com.helger</groupId>
   <artifactId>as2-peppol-servlet</artifactId>
   <version>5.3.2-SNAPSHOT</version>
   <packaging>bundle</packaging>
@@ -63,16 +64,16 @@
         <scope>import</scope>
       </dependency>
       <dependency>
-        <groupId>com.helger</groupId>
+        <groupId>com.helger.as2</groupId>
         <artifactId>as2-lib-parent-pom</artifactId>
-        <version>4.5.5</version>
+        <version>4.6.0-SNAPSHOT</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
       <dependency>
         <groupId>com.helger.peppol</groupId>
         <artifactId>peppol-commons-parent-pom</artifactId>
-        <version>8.1.0-SNAPSHOT</version>
+        <version>8.1.0</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
@@ -85,11 +86,11 @@
       <artifactId>ph-commons</artifactId>
     </dependency>
     <dependency>
-      <groupId>com.helger</groupId>
+      <groupId>com.helger.as2</groupId>
       <artifactId>as2-lib</artifactId>
     </dependency>
     <dependency>
-      <groupId>com.helger</groupId>
+      <groupId>com.helger.as2</groupId>
       <artifactId>as2-servlet</artifactId>
     </dependency>
     <dependency>
